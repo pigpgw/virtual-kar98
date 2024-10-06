@@ -1,9 +1,8 @@
-import reactLogo from './assets/react.svg';
-import viteLogo from '../public/vite.svg';
-import './App.css';
+import reactLogo from "./assets/react.svg";
+import viteLogo from "../public/vite.svg";
+import "./App.css";
 
 function App() {
-    console.log('asd');
     return (
         <>
             <div>
