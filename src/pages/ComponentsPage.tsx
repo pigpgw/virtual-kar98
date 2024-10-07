@@ -1,4 +1,6 @@
 import Button from "@/components/Button";
+import Input from "@/components/Input";
+import { type } from "../../node_modules/@ampproject/remapping/dist/types/remapping.d";
 
 const ComponentsPage = () => {
     return (
@@ -34,6 +36,21 @@ const ComponentsPage = () => {
             <Button type="no">NO</Button>
             <br />
             <Button type="delete">Delete Account</Button>
+            <br />
+            <div>default</div>
+            <Input type="default" />
+            <div>password</div>
+            <Input type="password" placeholder="this is password" />
+            <div>large</div>
+            <Input type="large" />
+            <div>extraLarge</div>
+            <Input type="extraLarge" />
+            <div>doubleextraLarge</div>
+            <Input type="doubleextraLarge" />
+            <div>x-long</div>
+            <Input type="xlong" />
+            <div>x-long</div>
+            <Input type="ylong" />
         </div>
     );
 };
