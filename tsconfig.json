@@ -10,13 +10,12 @@
     "paths": {
       "@/*": ["./src/*"]
     },
-    "resolveJsonModule": true,
+    "resolveJsonModule": false,
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
     "strict": true,
-    "moduleResolution": "bundler",
-    "allowImportingTsExtensions": false,
+    "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
