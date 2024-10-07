@@ -3,6 +3,10 @@
 @tailwind utilities;
 
 @layer components {
+    .inter-font {
+        @apply font-sans;
+    }
+
     .logo-main {
         @apply font-black-italy text-logo-main;
     }
@@ -28,11 +32,11 @@
     }
 
     .body1 {
-        @apply font-regular text-body;
+        @apply font-sans text-body;
     }
 
     .body2 {
-        @apply font-black-italy text-body font-bold;
+        @apply font-black-italy text-body;
     }
 
     .button-regular {

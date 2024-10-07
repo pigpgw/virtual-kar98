@@ -15,12 +15,12 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "strict": true,
-    "moduleResolution": "node",
-    "allowImportingTsExtensions": true,
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": false,
     "allowSyntheticDefaultImports": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src", "src/custom.d.ts"]
+  "include": ["src", "src/custom.d.ts", "postcss.config.js"]
 }

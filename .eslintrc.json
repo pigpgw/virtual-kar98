@@ -2,26 +2,31 @@
     "parser": "@typescript-eslint/parser",
     "plugins": ["@typescript-eslint", "react", "react-hooks", "prettier"],
     "extends": [
-      "eslint:recommended",
-      "plugin:@typescript-eslint/recommended",
-      "plugin:react/recommended",
-      "plugin:react-hooks/recommended",
-      "plugin:prettier/recommended"
+        "eslint:recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:react/recommended",
+        "plugin:react-hooks/recommended",
+        "plugin:prettier/recommended"
     ],
     "parserOptions": {
-      "ecmaFeatures": {
-        "jsx": true
-      },
-      "ecmaVersion": "latest",
-      "sourceType": "module"
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "ecmaVersion": "latest",
+        "sourceType": "module"
+    },
+    "env": {
+        "browser": true,
+        "es2021": true,
+        "node": true
     },
     "rules": {
-      "react/react-in-jsx-scope": "off",
-      "prettier/prettier": "error"
+        "react/react-in-jsx-scope": "off",
+        "prettier/prettier": "error"
     },
     "settings": {
-      "react": {
-        "version": "detect"
-      }
+        "react": {
+            "version": "detect"
+        }
     }
-  }
+}
