@@ -1,16 +1,16 @@
 import React from "react";
 
 const typeStyles = {
-    default: "w-24 h-9 bg-white text-black",
+    default: "w-24 h-9 bg-white text-black border border-gray-300",
     signin: "w-24 h-9 border border-black rounded-full text-black",
     signup: "w-24 h-9 bg-black text-white rounded-full",
-    write1: "w-[90px] h-7 bg-white text-black rounded-md",
-    write2: "w-[140px] h-7 bg-white text-black rounded-md",
-    yes: "w-[140px] h-7 bg-white text-black rounded-md",
+    write1: "w-[90px] h-7 bg-white text-black rounded-md border border-gray-300",
+    write2: "w-[140px] h-7 bg-white text-black rounded-md border border-gray-300",
+    yes: "w-[140px] h-7 bg-white text-black rounded-md border border-gray-300",
     no: "w-[140px] h-7 bg-black text-white rounded-md",
-    logout: "w-[206px] h-11 bg-black text-white rounded-lg",
-    delete: "w-[206px] h-11 bg-black text-white rounded-lg",
-    my: "w-13 h-13 bg-white text-black",
+    logout: "w-[206px] h-11 bg-black text-white rounded-2xl border border-white",
+    delete: "w-[206px] h-11 bg-black text-white rounded-2xl border border-white",
+    my: "w-13 h-13 bg-white text-black border border-gray-300",
 };
 
 type ButtonType = keyof typeof typeStyles;

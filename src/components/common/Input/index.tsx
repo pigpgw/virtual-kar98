@@ -1,8 +1,8 @@
 import React from "react";
 
 const typeStyles = {
-    default: "h-11 w-[296px] bg-white  rounded-3xl border-2 border-black",
-    password: "h-11 w-[296px] bg-white rounded-3xl border-2 border-black",
+    default: "h-11 w-full bg-white  rounded-3xl border-2 border-black",
+    password: "h-11 w-full bg-white rounded-3xl border-2 border-black",
     large: "h-[42px] w-[454px] bg-black text-white rounded-md",
     extraLarge: "h-[112px] w-[454px] py-2 bg-black text-white rounded-md",
     doubleextraLarge: "h-[203px] w-[490px] py-2 bg-black text-white rounded-md",
