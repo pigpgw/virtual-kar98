@@ -10,7 +10,7 @@ const typeStyles = {
     no: "w-[140px] h-7 bg-black text-white rounded-md",
     logout: "w-[206px] h-11 bg-black text-white rounded-2xl border border-white",
     delete: "w-[206px] h-11 bg-black text-white rounded-2xl border border-white",
-    my: "w-13 h-13 bg-white text-black border border-gray-300",
+    my: "w-15 h-15 text-black",
 };
 
 type ButtonType = keyof typeof typeStyles;
@@ -19,12 +19,13 @@ interface ButtonProps {
     type?: ButtonType;
     children: React.ReactNode;
     onClick?: () => void;
+    className?: string;
 }
 
-const Button = ({ type = "default", children, onClick }: ButtonProps) => {
+const Button = ({ type = "default", children, onClick, className }: ButtonProps) => {
     const baseStyles = "focus:outline-none font-semibold";
 
-    const buttonStyle = `${baseStyles} ${typeStyles[type]}`;
+    const buttonStyle = `${baseStyles} ${typeStyles[type]} ${className}`;
 
     return (
         <button className={buttonStyle} onClick={onClick}>

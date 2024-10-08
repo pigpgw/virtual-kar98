@@ -1,30 +1,37 @@
+import React from "react";
 import Button from "../common/Button";
 import Text from "@/components/common/Text";
+import { createPortal } from "react-dom";
 
 interface AlertModalProps {
     text: string;
     btn1: string;
     btn2: string;
-    onConfirm(): void;
-    onCancle(): void;
+    onConfirm: () => void;
+    onCancel: () => void;
 }
 
-const AlertModal = ({ text, btn1, btn2, onConfirm, onCancle }: AlertModalProps) => {
-    return (
-        <div className="w-[394px] h-[191px] flex justify-center items-center flex-col bg-black rounded-2xl">
-            <Text size="h6" className="text-white">
-                {text}
-            </Text>
-            <div className="pt-5">
-                <Button type="yes" onClick={onConfirm}>
-                    {btn1}
-                </Button>
-                <Button type="no" onClick={onCancle}>
-                    {btn2}
-                </Button>
+const AlertModal: React.FC<AlertModalProps> = ({ text, btn1, btn2, onConfirm, onCancel }) => {
+    const modalContent = (
+        <div className="flex items-center justify-center bg-black  fixed inset-0 z-50">
+            <div className="w-[394px] h-[191px] flex flex-col justify-center items-center bg-black rounded-2xl">
+                <Text size="h6" className="text-white mb-5 text-center px-4">
+                    {text}
+                </Text>
+                <div className="flex space-x-4">
+                    <Button type="yes" onClick={onConfirm}>
+                        {btn1}
+                    </Button>
+                    <Button type="no" onClick={onCancel}>
+                        {btn2}
+                    </Button>
+                </div>
             </div>
         </div>
     );
+
+    // createPortal을 사용하여 모달 내용을 body에 직접 렌더링합니다.
+    return createPortal(modalContent, document.body);
 };
 
 export default AlertModal;

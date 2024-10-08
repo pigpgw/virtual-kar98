@@ -1,9 +1,9 @@
 import Button from "@/components/common/Button";
 import Input from "@/components/common/Input";
 import Text from "@/components/common/Text";
-import SignUpModal from "../components/Modal/LoginModal";
 import AlertModal from "../components/Modal/AlertModal";
-import MyPageModal from "@/components/Modal/MypageModal";
+
+// import MyPageModal from "@/components/Modal/MypageModal";
 
 const ComponentsPage = () => {
     return (
@@ -78,12 +78,11 @@ const ComponentsPage = () => {
             <div></div>
             <br />
             <div className="flex">
-                <SignUpModal />
                 <AlertModal
                     text="Are you sure you want to log out"
                     btn1="YES"
                     btn2="NO"
-                    onCancle={() => {
+                    onCancel={() => {
                         console.log("yes");
                     }}
                     onConfirm={() => {
@@ -94,18 +93,15 @@ const ComponentsPage = () => {
                     text="Permenently Delete Your Account?"
                     btn1="YES"
                     btn2="NO"
-                    onCancle={() => {
+                    onCancel={() => {
                         console.log("yes");
                     }}
                     onConfirm={() => {
                         console.log("no");
                     }}
                 />
-                <MyPageModal
+                {/* <MyPageModal
                     title="MY PAGE"
-                    username="parkgeonwoo"
-                    nickname="pro pig"
-                    email="ceh20002@naver.com"
                     btn1="YES"
                     btn2="NO"
                     onCancle={() => {
@@ -114,7 +110,10 @@ const ComponentsPage = () => {
                     onConfirm={() => {
                         console.log("no");
                     }}
-                />
+                    closeModal={() => {
+                        
+                    }}
+                /> */}
             </div>
         </div>
     );

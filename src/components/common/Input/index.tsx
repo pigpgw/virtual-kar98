@@ -17,12 +17,13 @@ interface InputProps {
     placeholder?: string;
     value?: string | number;
     onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    className?: string;
 }
 
-const Input = ({ type, placeholder, value, onChange }: InputProps) => {
-    const baseStyles = "focus:outline-none pl-2";
+const Input = ({ type, placeholder, value, onChange, className }: InputProps) => {
+    const baseStyles = "focus:outline-none pl-2 border border-white";
 
-    const inputStyle = `${baseStyles} ${typeStyles[type]}`;
+    const inputStyle = `${baseStyles} ${typeStyles[type]} ${className}`;
 
     return (
         <input

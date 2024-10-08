@@ -2,10 +2,16 @@ import React, { useState } from "react";
 import Text from "@/components/common/Text";
 import Input from "../common/Input";
 import Button from "../common/Button";
+import { useNavigate } from "react-router-dom";
 
-const Login = () => {
+interface LoginProps {
+    onSignUpModal(): void;
+}
+
+const Login = ({ onSignUpModal }: LoginProps) => {
     const [id, setId] = useState("");
     const [password, setPassword] = useState("");
+    const navigate = useNavigate();
 
     const handleIdChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setId(e.target.value);
@@ -13,6 +19,14 @@ const Login = () => {
 
     const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setPassword(e.target.value);
+    };
+
+    const handleLogin = () => {
+        navigate("/home");
+    };
+
+    const handleSignUp = () => {
+        onSignUpModal();
     };
 
     return (
@@ -39,8 +53,12 @@ const Login = () => {
                 />
             </div>
             <div className="w-2/3 flex justify-between items-center mt-6">
-                <Button type="signin">Signin</Button>
-                <Button type="signup">Signup</Button>
+                <Button type="signin" onClick={handleLogin}>
+                    Signin
+                </Button>
+                <Button type="signup" onClick={handleSignUp}>
+                    Signup
+                </Button>
             </div>
         </div>
     );
