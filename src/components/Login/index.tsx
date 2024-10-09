@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Text from "@/components/common/Text";
 import Input from "../common/Input";
 import Button from "../common/Button";
+import { postSignIn } from "@/api/user";
 import { useNavigate } from "react-router-dom";
 
 interface LoginProps {
@@ -21,8 +22,19 @@ const Login = ({ onSignUpModal }: LoginProps) => {
         setPassword(e.target.value);
     };
 
-    const handleLogin = () => {
-        navigate("/home");
+    const handleLogin = async () => {
+        try {
+            const response = await postSignIn(id, password);
+            if (response.length > 0) {
+                localStorage.setItem("userId", id);
+                alert("로그인이 성고했습니다.");
+                navigate("/home");
+            } else {
+                alert("로그인에 실패했습니다.");
+            }
+        } catch (e) {
+            alert("로그인에 실패했습니다.");
+        }
     };
 
     const handleSignUp = () => {

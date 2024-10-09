@@ -13,6 +13,7 @@ interface TableListItemProps {
     title: string;
     writer: string;
     date: string;
+    onDetailModal?(): void;
 }
 
 const TableListItem = ({
@@ -21,12 +22,13 @@ const TableListItem = ({
     title,
     writer,
     date,
+    onDetailModal,
 }: TableListItemProps) => {
     const baseStyles = `w-full max-w-[1065px] h-[44px]`;
     const tableStyles = `${baseStyles} ${typeStyles[type]}`;
 
     return (
-        <div className={tableStyles}>
+        <div className={tableStyles} onClick={onDetailModal}>
             <div className="h-full flex items-center text-white">
                 <Text size="body" className="w-[100px] pl-5">
                     {list_number}

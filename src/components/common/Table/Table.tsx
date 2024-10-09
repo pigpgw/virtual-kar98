@@ -1,9 +1,10 @@
+import { useState } from "react";
 import TableListItem from "./TableListItem";
-
+import PostsDetail from "@/components/Modal/DetailModal";
 interface TableItemProps {
-    list_number: string | number;
+    id: string | number;
     title: string;
-    writer: string;
+    author: string;
     date: string;
 }
 
@@ -12,6 +13,23 @@ interface TableProps {
 }
 
 const Table = ({ posts }: TableProps) => {
+    const [postDetailModal, setPostDetailModal] = useState(false);
+    const [selectedPostId, setSelectedPostId] = useState<number | null>(null);
+
+    const handleRowClick = (id: number) => {
+        setSelectedPostId(id);
+        setPostDetailModal(true);
+    };
+
+    const closeDetailModal = () => {
+        setPostDetailModal(false);
+        setSelectedPostId(null);
+    };
+
+    const onDetailModal = () => {
+        setPostDetailModal(true);
+    };
+
     return (
         <div className="w-[1072px]">
             <TableListItem
@@ -27,13 +45,20 @@ const Table = ({ posts }: TableProps) => {
                 posts.map((item) => (
                     <TableListItem
                         type="default"
-                        key={item.list_number}
-                        list_number={item.list_number}
+                        key={item.id}
+                        list_number={item.id}
                         title={item.title}
-                        writer={item.writer}
+                        writer={item.author}
                         date={item.date}
+                        onDetailModal={() => {
+                            handleRowClick(item.id as number);
+                            onDetailModal();
+                        }}
                     />
                 ))
+            )}
+            {postDetailModal && (
+                <PostsDetail postId={selectedPostId as number} onClose={closeDetailModal} />
             )}
         </div>
     );

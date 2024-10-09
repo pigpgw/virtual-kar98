@@ -3,26 +3,36 @@ import Text from "@/components/common/Text";
 import Input from "../common/Input";
 import Button from "../common/Button";
 import { createPortal } from "react-dom";
+import { postSignUp } from "@/api/user";
 
 interface Props {
     onCancle(): void;
-    onAgree(): void;
 }
 
-const SignUpModal = ({ onCancle, onAgree }: Props) => {
+const SignUpModal = ({ onCancle }: Props) => {
     const [id, setId] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (password !== confirmPassword) {
             alert("비밀번호가 일치하지 않습니다.");
             return;
         }
-        // 여기에 회원가입 로직 추가
-        console.log("회원가입:", { id, password });
+        try {
+            await postSignUp({ username: id, password });
+            alert("회원가입이 완료되었습니다.");
+            onCancle();
+        } catch (error) {
+            if (error instanceof Error) {
+                alert(error.message);
+            } else {
+                alert("알 수 없는 오류가 발생했습니다.");
+            }
+        }
     };
+
     const modalContent = (
         <div className="flex items-center justify-center bg-black  fixed inset-0 z-50">
             <div className="w-[436px] h-[536px] flex items-center justify-center flex-col bg-black rounded-e-2xl  bg-opacity-50 z-50 border border-white rounded-3xl">
@@ -64,7 +74,7 @@ const SignUpModal = ({ onCancle, onAgree }: Props) => {
                         />
                     </div>
                     <div className="flex pt-5">
-                        <Button type="yes" onClick={onAgree}>
+                        <Button type="yes">
                             <Text size="button">YES</Text>
                         </Button>
                         <Button type="no" onClick={onCancle}>

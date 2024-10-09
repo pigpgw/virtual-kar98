@@ -6,140 +6,18 @@ import MyPageModal from "@/components/Modal/MypageModal";
 import WriteModal from "@/components/Modal/WriteModal";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
-const dummyTableListData = [
-    {
-        list_number: 1,
-        title: "첫 번째 게시글입니다.",
-        writer: "홍길동",
-        date: "2024-10-08",
-    },
-    {
-        list_number: 2,
-        title: "두 번째 게시글: 오늘의 날씨",
-        writer: "김철수",
-        date: "2024-10-07",
-    },
-    {
-        list_number: 3,
-        title: "React와 TypeScript 사용하기",
-        writer: "이영희",
-        date: "2024-10-06",
-    },
-    {
-        list_number: 4,
-        title: "효율적인 코드 작성법",
-        writer: "박지성",
-        date: "2024-10-05",
-    },
-    {
-        list_number: 5,
-        title: "새로운 프로젝트 아이디어",
-        writer: "최민수",
-        date: "2024-10-04",
-    },
-    {
-        list_number: 6,
-        title: "첫 번째 게시글입니다.",
-        writer: "홍길동",
-        date: "2024-10-08",
-    },
-    {
-        list_number: 7,
-        title: "두 번째 게시글: 오늘의 날씨",
-        writer: "김철수",
-        date: "2024-10-07",
-    },
-    {
-        list_number: 8,
-        title: "React와 TypeScript 사용하기",
-        writer: "이영희",
-        date: "2024-10-06",
-    },
-    {
-        list_number: 9,
-        title: "효율적인 코드 작성법",
-        writer: "박지성",
-        date: "2024-10-05",
-    },
-    {
-        list_number: 10,
-        title: "새로운 프로젝트 아이디어",
-        writer: "최민수",
-        date: "2024-10-04",
-    },
-    {
-        list_number: 11,
-        title: "첫 번째 게시글입니다.",
-        writer: "홍길동",
-        date: "2024-10-08",
-    },
-    {
-        list_number: 12,
-        title: "두 번째 게시글: 오늘의 날씨",
-        writer: "김철수",
-        date: "2024-10-07",
-    },
-    {
-        list_number: 13,
-        title: "React와 TypeScript 사용하기",
-        writer: "이영희",
-        date: "2024-10-06",
-    },
-    {
-        list_number: 14,
-        title: "효율적인 코드 작성법",
-        writer: "박지성",
-        date: "2024-10-05",
-    },
-    {
-        list_number: 15,
-        title: "새로운 프로젝트 아이디어",
-        writer: "최민수",
-        date: "2024-10-04",
-    },
-    {
-        list_number: 16,
-        title: "첫 번째 게시글입니다.",
-        writer: "홍길동",
-        date: "2024-10-08",
-    },
-    {
-        list_number: 17,
-        title: "두 번째 게시글: 오늘의 날씨",
-        writer: "김철수",
-        date: "2024-10-07",
-    },
-    {
-        list_number: 18,
-        title: "React와 TypeScript 사용하기",
-        writer: "이영희",
-        date: "2024-10-06",
-    },
-    {
-        list_number: 19,
-        title: "효율적인 코드 작성법",
-        writer: "박지성",
-        date: "2024-10-05",
-    },
-    {
-        list_number: 20,
-        title: "새로운 프로젝트 아이디어",
-        writer: "최민수",
-        date: "2024-10-04",
-    },
-];
+import { getTotalPost } from "@/api/post";
+import { postDeleteAccount } from "@/api/user";
 
 interface postProps {
-    list_number: number;
+    id: number;
     title: string;
-    writer: string;
+    content: string;
+    author: string;
     date: string;
 }
 const HomePage = () => {
-    const [dummyData, setDummyData] = useState(
-        dummyTableListData.sort((a, b) => a.list_number - b.list_number)
-    );
+    const [dummyData, setDummyData] = useState<postProps[]>([]);
     const [myPageModal, setMyPageModal] = useState(false);
     const [logoutModal, setLogoutModal] = useState(false);
     const [deleteAccountModal, setDeleteAccountModal] = useState(false);
@@ -150,10 +28,23 @@ const HomePage = () => {
 
     const numPages = Math.ceil(dummyData.length / limit);
 
-    const addNewPost = (newpost: Omit<postProps, "list_number">) => {
+    useEffect(() => {
+        getd();
+    }, []);
+
+    const getd = async () => {
+        try {
+            const response = await getTotalPost();
+            setDummyData(response);
+        } catch (e) {
+            alert(e);
+        }
+    };
+
+    const addNewPost = (newpost: Omit<postProps, "id">) => {
         setDummyData((prevData) => {
-            const updateData = [{ list_number: prevData.length + 1, ...newpost }, ...prevData];
-            return updateData.sort((a, b) => a.list_number - b.list_number);
+            const updateData = [{ id: prevData.length + 1, ...newpost }, ...prevData];
+            return updateData.sort((a, b) => a.id - b.id);
         });
     };
 
@@ -161,19 +52,18 @@ const HomePage = () => {
 
     const handleLogout = () => {
         alert("로그아웃 성공");
+        localStorage.removeItem("userId");
         navigate("/");
     };
-
+    const userId = localStorage.getItem("userId");
     const handleDeleteAccount = () => {
         alert("계정 삭제 성공");
+        postDeleteAccount(userId as string);
         navigate("/");
     };
 
     // 현재 페이지의 게시물 계산
     const currentPosts = dummyData.slice((page - 1) * limit, page * limit);
-    useEffect(() => {
-        console.log(page);
-    });
 
     return (
         <>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { InputHTMLAttributes } from "react";
 
 const typeStyles = {
     default: "h-11 w-full bg-white  rounded-3xl border-2 border-black",
@@ -8,31 +8,20 @@ const typeStyles = {
     doubleextraLarge: "h-[203px] w-[490px] py-2 bg-black text-white rounded-md",
     xlong: "h-[33px] w-[616px] bg-black text-white rounded-md",
     ylong: "h-[368px] w-[225px] bg-black text-white rounded-md",
-};
+} as const;
 
 type InputType = keyof typeof typeStyles;
 
-interface InputProps {
+interface InputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "type"> {
     type: InputType;
-    placeholder?: string;
-    value?: string | number;
-    onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    className?: string;
 }
 
-const Input = ({ type, placeholder, value, onChange, className }: InputProps) => {
+const Input: React.FC<InputProps> = ({ type, className, ...rest }) => {
     const baseStyles = "focus:outline-none pl-2 border border-white";
-
-    const inputStyle = `${baseStyles} ${typeStyles[type]} ${className}`;
+    const inputStyle = `${baseStyles} ${typeStyles[type]} ${className || ""}`;
 
     return (
-        <input
-            type={type === "password" ? "password" : "text"}
-            className={inputStyle}
-            placeholder={placeholder}
-            value={value}
-            onChange={onChange}
-        />
+        <input {...rest} type={type === "password" ? "password" : "text"} className={inputStyle} />
     );
 };
 

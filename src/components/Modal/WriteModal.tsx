@@ -1,21 +1,50 @@
+import React, { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import Text from "@/components/common/Text";
 import Input from "../common/Input";
 import Button from "../common/Button";
-import { createPortal } from "react-dom";
-import { useState } from "react";
+import { addPost, getTotalPost } from "@/api/post";
 
 interface WriteModalProps {
-    closeModal(): void;
-    writePost(newPost: { title: string; writer: string; date: string }): void;
+    closeModal: () => void;
+    writePost: (newPost: {
+        id: number;
+        title: string;
+        content: string;
+        author: string;
+        date: string;
+    }) => void;
 }
 
-const WriteModal = ({ closeModal, writePost }: WriteModalProps) => {
+const WriteModal: React.FC<WriteModalProps> = ({ closeModal, writePost }) => {
     const [title, setTitle] = useState("");
     const [writer, setWriter] = useState("");
+    const [content, setContent] = useState("");
+    const [date] = useState(new Date().toISOString().split("T")[0]);
+    const userId = localStorage.getItem("userId");
 
-    const handleSubmit = () => {
-        const newPost = { title, writer, date: new Date().toISOString().split("T")[0] };
-        writePost(newPost);
+    useEffect(() => {
+        if (userId) setWriter(userId);
+    }, [userId]);
+
+    const handleSubmit = async () => {
+        try {
+            const totalPosts = await getTotalPost();
+
+            const newPost = {
+                id: totalPosts.length + 1,
+                title,
+                author: writer,
+                content,
+                date,
+            };
+            const response = await addPost(newPost);
+            alert(response);
+            writePost(newPost);
+            closeModal();
+        } catch (e) {
+            alert(e);
+        }
     };
 
     const modalContent = (
@@ -38,7 +67,11 @@ const WriteModal = ({ closeModal, writePost }: WriteModalProps) => {
                                 title
                             </Text>
                             <div className="flex-1">
-                                <Input type="large" />
+                                <Input
+                                    type="large"
+                                    value={title}
+                                    onChange={(e) => setTitle(e.target.value)}
+                                />
                             </div>
                         </div>
                         <div className="flex items-center">
@@ -46,12 +79,7 @@ const WriteModal = ({ closeModal, writePost }: WriteModalProps) => {
                                 writer
                             </Text>
                             <div className="flex-1">
-                                <Input
-                                    type="large"
-                                    onChange={(e) => {
-                                        setWriter(e.target.value);
-                                    }}
-                                />
+                                <Input type="large" value={writer} disabled />
                             </div>
                         </div>
                         <div className="flex items-center">
@@ -59,12 +87,7 @@ const WriteModal = ({ closeModal, writePost }: WriteModalProps) => {
                                 date
                             </Text>
                             <div className="flex-1">
-                                <Input
-                                    type="large"
-                                    onChange={(e) => {
-                                        setTitle(e.target.value);
-                                    }}
-                                />
+                                <Input type="large" value={date} disabled />
                             </div>
                         </div>
                         <div className="flex items-start">
@@ -72,18 +95,16 @@ const WriteModal = ({ closeModal, writePost }: WriteModalProps) => {
                                 content
                             </Text>
                             <div className="flex-1">
-                                <Input type="doubleextraLarge" />
+                                <Input
+                                    type="doubleextraLarge"
+                                    value={content}
+                                    onChange={(e) => setContent(e.target.value)}
+                                />
                             </div>
                         </div>
                     </div>
                     <div className="flex justify-center my-4">
-                        <Button
-                            type="write2"
-                            onClick={() => {
-                                handleSubmit();
-                                closeModal();
-                            }}
-                        >
+                        <Button type="write2" onClick={handleSubmit}>
                             <Text size="h6">write</Text>
                         </Button>
                     </div>
