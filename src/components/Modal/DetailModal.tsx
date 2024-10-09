@@ -33,6 +33,7 @@ const PostsDetail: React.FC<Props> = ({ postId, onClose }) => {
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const commentsEndRef = useRef<HTMLDivElement>(null);
+    const username = localStorage.getItem("username");
 
     const fetchPostAndComments = async () => {
         try {
@@ -82,7 +83,7 @@ const PostsDetail: React.FC<Props> = ({ postId, onClose }) => {
             const newComment = {
                 id: postId,
                 postId: postId,
-                author: "박건우", // 실제 사용자 정보로 대체해야 함
+                author: username as string, // 실제 사용자 정보로 대체해야 함
                 content: writeComment,
                 createdAt: new Date().toISOString(),
             };
@@ -95,6 +96,7 @@ const PostsDetail: React.FC<Props> = ({ postId, onClose }) => {
     };
 
     const activeEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        e.preventDefault();
         if (e.key === "Enter") {
             submitComments();
         }

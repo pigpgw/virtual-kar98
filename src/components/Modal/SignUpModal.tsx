@@ -3,7 +3,7 @@ import Text from "@/components/common/Text";
 import Input from "../common/Input";
 import Button from "../common/Button";
 import { createPortal } from "react-dom";
-import { postSignUp } from "@/api/user";
+import { postSignIn, postSignUp } from "@/api/user";
 
 interface Props {
     onCancle(): void;
@@ -20,16 +20,20 @@ const SignUpModal = ({ onCancle }: Props) => {
             alert("비밀번호가 일치하지 않습니다.");
             return;
         }
+        const userExist = await postSignIn(id, password);
+        if (userExist.length > 0) {
+            alert("이미 존재하는 아이디입니다.");
+            setId("");
+            setPassword("");
+            setConfirmPassword("");
+            return;
+        }
         try {
             await postSignUp({ username: id, password });
             alert("회원가입이 완료되었습니다.");
             onCancle();
-        } catch (error) {
-            if (error instanceof Error) {
-                alert(error.message);
-            } else {
-                alert("알 수 없는 오류가 발생했습니다.");
-            }
+        } catch (e) {
+            alert(e);
         }
     };
 

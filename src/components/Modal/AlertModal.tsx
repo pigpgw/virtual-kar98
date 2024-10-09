@@ -5,22 +5,28 @@ import { createPortal } from "react-dom";
 
 interface AlertModalProps {
     text: string;
-    btn1: string;
+    confirmButtonString: string;
     btn2: string;
     onConfirm: () => void;
     onCancel: () => void;
 }
 
-const AlertModal: React.FC<AlertModalProps> = ({ text, btn1, btn2, onConfirm, onCancel }) => {
+const AlertModal: React.FC<AlertModalProps> = ({
+    text,
+    confirmButtonString,
+    btn2,
+    onConfirm,
+    onCancel,
+}) => {
     const modalContent = (
         <div className="flex items-center justify-center bg-black  fixed inset-0 z-50">
-            <div className="w-[394px] h-[191px] flex flex-col justify-center items-center bg-black rounded-2xl">
+            <div className="w-[394px] h-[191px] flex flex-col justify-center items-center bg-black rounded-2xl border border-white">
                 <Text size="h6" className="text-white mb-5 text-center px-4">
                     {text}
                 </Text>
                 <div className="flex space-x-4">
                     <Button type="yes" onClick={onConfirm}>
-                        {btn1}
+                        {confirmButtonString}
                     </Button>
                     <Button type="no" onClick={onCancel}>
                         {btn2}

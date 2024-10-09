@@ -26,7 +26,10 @@ const Login = ({ onSignUpModal }: LoginProps) => {
         try {
             const response = await postSignIn(id, password);
             if (response.length > 0) {
-                localStorage.setItem("userId", id);
+                const userId = response[0].id;
+                const username = response[0].username;
+                localStorage.setItem("userId", userId);
+                localStorage.setItem("username", username);
                 alert("로그인이 성고했습니다.");
                 navigate("/home");
             } else {
@@ -42,11 +45,11 @@ const Login = ({ onSignUpModal }: LoginProps) => {
     };
 
     return (
-        <div className="min-w-[383px] w-full max-w-[383px] h-[832px] flex flex-col items-center justify-center">
+        <div className="min-w-[383px] w-full max-w-[400px] h-[832px] flex flex-col items-center justify-center">
             <Text size="h2" className="">
                 Login
             </Text>
-            <div className="flex flex-col">
+            <div className="flex flex-col w-2/3">
                 <Text size="h3">ID</Text>
                 <Input
                     type="default"
@@ -55,13 +58,14 @@ const Login = ({ onSignUpModal }: LoginProps) => {
                     placeholder="Enter your ID"
                 />
             </div>
-            <div className="flex flex-col">
+            <div className="flex flex-col w-2/3">
                 <Text size="h3">PASSWORD</Text>
                 <Input
                     type="password"
                     value={password}
                     onChange={handlePasswordChange}
                     placeholder="Enter your password"
+                    className="border2 border-black"
                 />
             </div>
             <div className="w-2/3 flex justify-between items-center mt-6">

@@ -20,12 +20,12 @@ const WriteModal: React.FC<WriteModalProps> = ({ closeModal, writePost }) => {
     const [title, setTitle] = useState("");
     const [writer, setWriter] = useState("");
     const [content, setContent] = useState("");
-    const [date] = useState(new Date().toISOString().split("T")[0]);
-    const userId = localStorage.getItem("userId");
+    const [date] = useState(() => new Date().toLocaleDateString("ko-KR"));
+    const username = localStorage.getItem("username");
 
     useEffect(() => {
-        if (userId) setWriter(userId);
-    }, [userId]);
+        if (username) setWriter(username);
+    }, [username]);
 
     const handleSubmit = async () => {
         try {
@@ -47,9 +47,13 @@ const WriteModal: React.FC<WriteModalProps> = ({ closeModal, writePost }) => {
         }
     };
 
+    const handleEnterSubmit = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === "Enter") handleSubmit();
+    };
+
     const modalContent = (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-70">
-            <div className="w-[800px] bg-black flex flex-col relative border border-white justify-center items-center">
+            <div className="w-[800px] bg-black flex flex-col relative border border-white justify-center items-center rounded-xl pt-10 px-4">
                 <Text size="h4" className="text-white mb-4">
                     Write Board
                 </Text>
@@ -99,6 +103,7 @@ const WriteModal: React.FC<WriteModalProps> = ({ closeModal, writePost }) => {
                                     type="doubleextraLarge"
                                     value={content}
                                     onChange={(e) => setContent(e.target.value)}
+                                    onKeyPress={handleEnterSubmit}
                                 />
                             </div>
                         </div>

@@ -16,26 +16,43 @@ interface postProps {
     author: string;
     date: string;
 }
+const limit = 10; // 페이지당 게시물 수를 상수로 설정
+
+// 객체 지향 프로그래밍도 같이 할 수 있음.(데이터를 다룰 때)
+export class Posts {
+    props: postProps[];
+    constructor(props: postProps[]) {
+        this.props = props;
+    }
+
+    get numPages() {
+        return Math.ceil(this.props.length / limit);
+    }
+}
+
 const HomePage = () => {
+    // const posts = new Posts([]);
     const [dummyData, setDummyData] = useState<postProps[]>([]);
     const [myPageModal, setMyPageModal] = useState(false);
+    // const [myPageModal, setMyPageModal] = useReducer((prev) => !prev, false);
     const [logoutModal, setLogoutModal] = useState(false);
     const [deleteAccountModal, setDeleteAccountModal] = useState(false);
     const [writeModal, setWriteModal] = useState(false);
-
     const [page, setPage] = useState(1);
-    const limit = 10; // 페이지당 게시물 수를 상수로 설정
-
+    // const numPages = posts.numPages;
     const numPages = Math.ceil(dummyData.length / limit);
+    const navigate = useNavigate();
+    const userId = localStorage.getItem("username");
 
     useEffect(() => {
-        getd();
+        fetchTotalPost();
     }, []);
 
-    const getd = async () => {
+    const fetchTotalPost = async () => {
         try {
             const response = await getTotalPost();
-            setDummyData(response);
+            setDummyData(response.sort((a: postProps, b: postProps) => b.id - a.id));
+            console.log(response);
         } catch (e) {
             alert(e);
         }
@@ -44,21 +61,20 @@ const HomePage = () => {
     const addNewPost = (newpost: Omit<postProps, "id">) => {
         setDummyData((prevData) => {
             const updateData = [{ id: prevData.length + 1, ...newpost }, ...prevData];
-            return updateData.sort((a, b) => a.id - b.id);
+            return updateData.sort((a, b) => b.id - a.id);
         });
     };
-
-    const navigate = useNavigate();
 
     const handleLogout = () => {
         alert("로그아웃 성공");
         localStorage.removeItem("userId");
+        localStorage.removeItem("username");
         navigate("/");
     };
-    const userId = localStorage.getItem("userId");
+
     const handleDeleteAccount = () => {
         alert("계정 삭제 성공");
-        postDeleteAccount(userId as string);
+        postDeleteAccount(`${userId}`);
         navigate("/");
     };
 
@@ -71,42 +87,53 @@ const HomePage = () => {
                 <Text size="h4" className="text-white">
                     Jungle Board
                 </Text>
-                <Button
-                    type="my"
-                    className="bg-black text-white"
-                    onClick={() => setMyPageModal(true)}
-                >
-                    My
-                </Button>
-                <Text size="h5" className="text-white">
-                    welcome!
-                </Text>
-                <Text size="h6" className="text-gray-700">
-                    Here is a list of Jungle notifications for this season
-                </Text>
-                <Table posts={currentPosts} />
-                <div className="w-full flex items-center justify-center">
-                    {Array.from({ length: numPages }, (_, i) => (
+                <div className="w-full h-full flex flex-col items-center justify-center">
+                    <div className="absolute top-10 right-10">
                         <Button
-                            key={i + 1}
-                            onClick={() => setPage(i + 1)}
-                            aria-current={page === i + 1 ? "page" : undefined}
                             type="my"
-                            className="text-white px-2"
+                            className="bg-black text-white"
+                            onClick={() => {
+                                console.log("Opening MyPageModal");
+                                setMyPageModal(true);
+                            }}
                         >
-                            {i + 1}
+                            My
                         </Button>
-                    ))}
+                    </div>
+                    <div className="flex flex-col w-full max-w-[1070px] pb-5">
+                        <Text size="h5" className="text-white">
+                            welcome!
+                        </Text>
+                        <Text size="h6" className="text-gray-700">
+                            Here is a list of Jungle notifications for this season
+                        </Text>
+                    </div>
+                    <Table posts={currentPosts} />
+                    <div className="w-[1100px] h-[90px]] flex items-center justify-center">
+                        {Array.from({ length: numPages }, (_, i) => (
+                            <Button
+                                key={i + 1}
+                                onClick={() => setPage(i + 1)}
+                                aria-current={page === i + 1 ? "page" : undefined}
+                                type="my"
+                                className="text-white px-2"
+                            >
+                                {i + 1}
+                            </Button>
+                        ))}
+                    </div>
+                    <div className="absolute bottom-10 right-10">
+                        <Button type="write1" onClick={() => setWriteModal(true)}>
+                            글쓰기
+                        </Button>
+                    </div>
                 </div>
-                <Button type="write1" onClick={() => setWriteModal(true)}>
-                    글쓰기
-                </Button>
             </div>
             {myPageModal && (
                 <MyPageModal
-                    title="내 페이지"
-                    btn1="로그아웃"
-                    btn2="계정 삭제"
+                    title="MY PAGE"
+                    btn1="LOGOUT"
+                    btn2="DELETE ACCOUNT"
                     onConfirm={() => setLogoutModal(true)}
                     onCancle={() => setDeleteAccountModal(true)}
                     closeModal={() => setMyPageModal(false)}
@@ -115,7 +142,7 @@ const HomePage = () => {
             {logoutModal && (
                 <AlertModal
                     text="정말 로그아웃하시겠습니까?"
-                    btn1="예"
+                    confirmButtonString="예"
                     btn2="아니오"
                     onConfirm={handleLogout}
                     onCancel={() => setLogoutModal(false)}
@@ -124,7 +151,7 @@ const HomePage = () => {
             {deleteAccountModal && (
                 <AlertModal
                     text="정말로 계정을 삭제하시겠습니까?"
-                    btn1="예"
+                    confirmButtonString="예"
                     btn2="아니오"
                     onConfirm={handleDeleteAccount}
                     onCancel={() => setDeleteAccountModal(false)}

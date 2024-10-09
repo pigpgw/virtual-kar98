@@ -1,5 +1,7 @@
+import { getUserInfo } from "@/api/user";
 import Button from "../common/Button";
 import Text from "@/components/common/Text";
+import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 
 interface MyPageModalProps {
@@ -10,39 +12,64 @@ interface MyPageModalProps {
     onCancle(): void;
     closeModal(): void;
 }
+interface UserInfo {
+    id: string;
+    username: string;
+    password: string;
+}
 
 const MyPageModal = ({ title, btn1, btn2, onConfirm, onCancle, closeModal }: MyPageModalProps) => {
+    const [user, setUser] = useState<UserInfo | null>();
+    const userId = localStorage.getItem("userId");
+    const fetchUserInfo = async (userId: string) => {
+        try {
+            const response = await getUserInfo(userId);
+            setUser(response);
+        } catch (e) {
+            alert(e);
+        }
+    };
+    useEffect(() => {
+        fetchUserInfo(userId as string);
+    }, [userId]);
+
     const modalContent = (
         <div className="fixed inset-0 flex flex-col items-center justify-center bg-black bg-opacity-70">
             <div
                 className="w-[409px] h-[475px] flex-col  bg-black rounded-2xl
              flex items-center justify-center border border-white"
             >
-                <Button type="no" onClick={closeModal}>
-                    X
-                </Button>
-                <Text size="h3" className="text-white">
-                    {title}
-                </Text>
-                <div className="h-1/2 flex flex-col items-start justify-around">
-                    <Text size="h6" className="text-white">
-                        username : 박건우
-                    </Text>
-                    <Text size="h6" className="text-white">
-                        nickname : pigpgw
-                    </Text>
-                    <Text size="h6" className="text-white">
-                        email : ceh20002@naver.com
-                    </Text>
-                </div>
-                <div className="pt-5 flex flex-col">
-                    <Button type="logout" onClick={onConfirm}>
-                        {btn1}
-                    </Button>
-                    <Button type="delete" onClick={onCancle}>
-                        {btn2}
-                    </Button>
-                </div>
+                {user && (
+                    <>
+                        <div className="w-full flex justify-end relative right-5 bottom-2">
+                            <Button type="my" onClick={closeModal} className="text-white flex">
+                                X
+                            </Button>
+                        </div>
+                        <Text size="h3" className="text-white">
+                            {title}
+                        </Text>
+                        <div className="h-1/2 flex flex-col items-start justify-around">
+                            <Text size="h6" className="text-white">
+                                id :{user.id}
+                            </Text>
+                            <Text size="h6" className="text-white">
+                                username : {user.username}
+                            </Text>
+                            <Text size="h6" className="text-white">
+                                password : {user.password}
+                            </Text>
+                        </div>
+                        <div className="pt-5 flex flex-col">
+                            <Button type="logout" onClick={onConfirm}>
+                                {btn1}
+                            </Button>
+                            <Button type="delete" onClick={onCancle}>
+                                {btn2}
+                            </Button>
+                        </div>
+                    </>
+                )}
             </div>
         </div>
     );

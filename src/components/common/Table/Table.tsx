@@ -31,7 +31,7 @@ const Table = ({ posts }: TableProps) => {
     };
 
     return (
-        <div className="w-[1072px]">
+        <div className="max-w-[1072px]">
             <TableListItem
                 type="header"
                 list_number="번호"
@@ -40,7 +40,9 @@ const Table = ({ posts }: TableProps) => {
                 date="작성일"
             />
             {posts.length === 0 ? (
-                <div>gd</div>
+                <div className="w-full h-full flex items-center justify-center text-white">
+                    게시글이 없습니다.
+                </div>
             ) : (
                 posts.map((item) => (
                     <TableListItem
@@ -51,14 +53,14 @@ const Table = ({ posts }: TableProps) => {
                         writer={item.author}
                         date={item.date}
                         onDetailModal={() => {
-                            handleRowClick(item.id as number);
+                            handleRowClick(+item.id);
                             onDetailModal();
                         }}
                     />
                 ))
             )}
             {postDetailModal && (
-                <PostsDetail postId={selectedPostId as number} onClose={closeDetailModal} />
+                <PostsDetail postId={Number(selectedPostId)} onClose={closeDetailModal} />
             )}
         </div>
     );

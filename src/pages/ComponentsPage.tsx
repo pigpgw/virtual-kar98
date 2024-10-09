@@ -80,7 +80,7 @@ const ComponentsPage = () => {
             <div className="flex">
                 <AlertModal
                     text="Are you sure you want to log out"
-                    btn1="YES"
+                    confirmButtonString="YES"
                     btn2="NO"
                     onCancel={() => {
                         console.log("yes");
@@ -91,7 +91,7 @@ const ComponentsPage = () => {
                 />
                 <AlertModal
                     text="Permenently Delete Your Account?"
-                    btn1="YES"
+                    confirmButtonString="YES"
                     btn2="NO"
                     onCancel={() => {
                         console.log("yes");
