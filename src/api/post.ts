@@ -16,3 +16,8 @@ export const getPostDetail = async (postId: number) => {
     const response = await axios.get(`${HOST}/posts?id=${postId}`);
     return response.data;
 };
+
+export const deletePostDetail = async (postId: number) => {
+    const response = await axios.delete(`${HOST}/posts/${postId}`);
+    return response.data;
+};

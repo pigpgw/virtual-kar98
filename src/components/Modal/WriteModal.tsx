@@ -8,7 +8,7 @@ import { addPost, getTotalPost } from "@/api/post";
 interface WriteModalProps {
     closeModal: () => void;
     writePost: (newPost: {
-        id: number;
+        id: string;
         title: string;
         content: string;
         author: string;
@@ -24,15 +24,17 @@ const WriteModal: React.FC<WriteModalProps> = ({ closeModal, writePost }) => {
     const username = localStorage.getItem("username");
 
     useEffect(() => {
-        if (username) setWriter(username);
+        if (username) setWriter(String(username));
     }, [username]);
 
     const handleSubmit = async () => {
+        if (!title.trim()) alert("제목을 작성해주세요");
+        if (!content.trim()) alert("내용을 작성해주세요");
         try {
             const totalPosts = await getTotalPost();
 
             const newPost = {
-                id: totalPosts.length + 1,
+                id: String(totalPosts.length + 1),
                 title,
                 author: writer,
                 content,

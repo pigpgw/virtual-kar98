@@ -1,9 +1,9 @@
 import { https } from "@/functions/https";
 
 export const postSignIn = async (username: string, password: string) => {
-    const response = await https.get(
-        `/users?${new URLSearchParams({ username: username, password: password }).toString()}`
-    );
+    console.log(username, password);
+    const response = await https.get(`/users?username=${username}&password=${password}`);
+    console.log(response.data);
     return response.data;
 };
 
@@ -12,27 +12,12 @@ export const postSignUp = async (user: { username: string; password: string }) =
     return response.data;
 };
 
-export class Post {
+export const addPost = async (post: {
     title: string;
-    auth_token: string;
+    author: string;
     content: string;
     date: string;
-    constructor(title: string, auth: string, content: string, date: string) {
-        this.title = title;
-        this.auth_token = auth;
-        this.content = content;
-        this.date = date;
-    }
-}
-
-export class AddPostRequestDto {
-    post: Post;
-    constructor(post: Post) {
-        this.post = post;
-    }
-}
-
-export const addPost = async (post: Post) => {
+}) => {
     const response = await https.post(`/users`, post);
     return response.data;
 };

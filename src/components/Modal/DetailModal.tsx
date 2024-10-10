@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { createPortal } from "react-dom";
-import { getPostDetail } from "@/api/post";
+import { deletePostDetail, getPostDetail } from "@/api/post";
 import { addComment, getComment } from "@/api/comment";
 import Text from "@/components/common/Text";
 import Input from "../common/Input";
@@ -34,6 +34,19 @@ const PostsDetail: React.FC<Props> = ({ postId, onClose }) => {
     const [error, setError] = useState<string | null>(null);
     const commentsEndRef = useRef<HTMLDivElement>(null);
     const username = localStorage.getItem("username");
+    const userId = localStorage.getItem("userId");
+    const [mine, setMine] = useState(false);
+
+    const fetchDeletePost = async () => {
+        try {
+            console.log("userid", postId);
+            await deletePostDetail(postId);
+            alert("게시글이 성공적으로 삭제되었습니다.");
+            onClose();
+        } catch (e) {
+            alert(e);
+        }
+    };
 
     const fetchPostAndComments = async () => {
         try {
@@ -42,6 +55,10 @@ const PostsDetail: React.FC<Props> = ({ postId, onClose }) => {
                 getPostDetail(postId),
                 getComment(postId),
             ]);
+            console.log("postResponse", postResponse[0], userId);
+            if (postResponse[0].author === username) {
+                setMine(true);
+            }
 
             if (postResponse && postResponse.length > 0) {
                 setPost(postResponse[0]);
@@ -156,7 +173,7 @@ const PostsDetail: React.FC<Props> = ({ postId, onClose }) => {
                                 </Button>
                             </div>
                         </div>
-                        <div className="ml-4 space-y-4 w-[225px]">
+                        <div className="ml-4 space-y-4 w-[225px] flex flex-col justify-between">
                             <Text size="h3" className="text-white">
                                 comment
                             </Text>
@@ -178,6 +195,19 @@ const PostsDetail: React.FC<Props> = ({ postId, onClose }) => {
                                 )}
                                 <div ref={commentsEndRef} />
                             </div>
+                            {mine && (
+                                <div className="">
+                                    <Button
+                                        type="my"
+                                        className="flex w-full justify-end pr-2"
+                                        onClick={fetchDeletePost}
+                                    >
+                                        <Text size="body" className="text-white">
+                                            글 삭제하기
+                                        </Text>
+                                    </Button>
+                                </div>
+                            )}
                         </div>
                     </div>
                 ) : null}

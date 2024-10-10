@@ -59,26 +59,19 @@ const ComponentsPage = () => {
                     <Button type="delete">Delete Account</Button>
                 </div>
                 <div>
-                    <div>default</div>
                     <Input type="default" />
-                    <div>password</div>
                     <Input type="password" placeholder="this is password" />
-                    <div>large</div>
                     <Input type="large" />
-                    <div>extraLarge</div>
                     <Input type="extraLarge" />
-                    <div>doubleextraLarge</div>
                     <Input type="doubleextraLarge" />
-                    <div>x-long</div>
                     <Input type="xlong" />
-                    <div>x-long</div>
                     <Input type="ylong" />
                 </div>
             </div>
             <div></div>
             <br />
             <div className="flex">
-                <AlertModal
+                {/* <AlertModal
                     text="Are you sure you want to log out"
                     confirmButtonString="YES"
                     btn2="NO"
@@ -99,7 +92,7 @@ const ComponentsPage = () => {
                     onConfirm={() => {
                         console.log("no");
                     }}
-                />
+                /> */}
                 {/* <MyPageModal
                     title="MY PAGE"
                     btn1="YES"

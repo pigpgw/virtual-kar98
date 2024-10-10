@@ -31,7 +31,7 @@ const Table = ({ posts }: TableProps) => {
     };
 
     return (
-        <div className="max-w-[1072px]">
+        <div className="max-w-[1072px] min-h-[490px]">
             <TableListItem
                 type="header"
                 list_number="번호"

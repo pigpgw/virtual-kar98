@@ -38,21 +38,25 @@ const HomePage = () => {
     const [logoutModal, setLogoutModal] = useState(false);
     const [deleteAccountModal, setDeleteAccountModal] = useState(false);
     const [writeModal, setWriteModal] = useState(false);
-    const [page, setPage] = useState(1);
     // const numPages = posts.numPages;
+
+    const [page, setPage] = useState(1);
     const numPages = Math.ceil(dummyData.length / limit);
+
+    // 현재 페이지의 게시물 계산
+    const currentPosts = dummyData.slice((page - 1) * limit, page * limit);
+
     const navigate = useNavigate();
     const userId = localStorage.getItem("username");
 
     useEffect(() => {
         fetchTotalPost();
-    }, []);
+    }, [dummyData]);
 
     const fetchTotalPost = async () => {
         try {
             const response = await getTotalPost();
             setDummyData(response.sort((a: postProps, b: postProps) => b.id - a.id));
-            console.log(response);
         } catch (e) {
             alert(e);
         }
@@ -77,9 +81,6 @@ const HomePage = () => {
         postDeleteAccount(`${userId}`);
         navigate("/");
     };
-
-    // 현재 페이지의 게시물 계산
-    const currentPosts = dummyData.slice((page - 1) * limit, page * limit);
 
     return (
         <>
