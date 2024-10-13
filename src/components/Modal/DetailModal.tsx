@@ -5,6 +5,7 @@ import { addComment, getComment } from "@/api/comment";
 import Text from "@/components/common/Text";
 import Input from "../common/Input";
 import Button from "../common/Button";
+import useUserStore from "@/store/userStore/users";
 
 interface Post {
     title: string;
@@ -28,18 +29,18 @@ interface Props {
 
 const PostsDetail: React.FC<Props> = ({ postId, onClose }) => {
     const [post, setPost] = useState<Post | null>(null);
-    const [writeComment, setWriteComment] = useState("");
     const [comments, setComments] = useState<Comment[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
+
+    const [writeComment, setWriteComment] = useState("");
     const commentsEndRef = useRef<HTMLDivElement>(null);
-    const username = localStorage.getItem("username");
-    const userId = localStorage.getItem("userId");
     const [mine, setMine] = useState(false);
+
+    const { userId, username } = useUserStore();
 
     const fetchDeletePost = async () => {
         try {
-            console.log("userid", postId);
             await deletePostDetail(postId);
             alert("게시글이 성공적으로 삭제되었습니다.");
             onClose();

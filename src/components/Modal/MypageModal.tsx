@@ -3,6 +3,7 @@ import Button from "../common/Button";
 import Text from "@/components/common/Text";
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
+import useUserStore from "@/store/userStore/users";
 
 interface MyPageModalProps {
     title: string;
@@ -20,7 +21,7 @@ interface UserInfo {
 
 const MyPageModal = ({ title, btn1, btn2, onConfirm, onCancle, closeModal }: MyPageModalProps) => {
     const [user, setUser] = useState<UserInfo | null>();
-    const userId = localStorage.getItem("userId");
+    const { userId } = useUserStore();
     const fetchUserInfo = async (userId: string) => {
         try {
             const response = await getUserInfo(userId);
@@ -30,7 +31,7 @@ const MyPageModal = ({ title, btn1, btn2, onConfirm, onCancle, closeModal }: MyP
         }
     };
     useEffect(() => {
-        fetchUserInfo(userId as string);
+        fetchUserInfo(userId);
     }, [userId]);
 
     const modalContent = (

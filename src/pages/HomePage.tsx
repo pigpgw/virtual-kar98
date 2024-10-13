@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getTotalPost } from "@/api/post";
 import { postDeleteAccount } from "@/api/user";
+import useUserStore from "@/store/userStore/users";
 
 interface postProps {
     id: number;
@@ -47,7 +48,7 @@ const HomePage = () => {
     const currentPosts = dummyData.slice((page - 1) * limit, page * limit);
 
     const navigate = useNavigate();
-    const userId = localStorage.getItem("username");
+    const { userId, resetUserId, resetUserName } = useUserStore();
 
     useEffect(() => {
         fetchTotalPost();
@@ -71,8 +72,8 @@ const HomePage = () => {
 
     const handleLogout = () => {
         alert("로그아웃 성공");
-        localStorage.removeItem("userId");
-        localStorage.removeItem("username");
+        resetUserId();
+        resetUserName();
         navigate("/");
     };
 

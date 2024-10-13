@@ -1,8 +1,7 @@
 import Button from "@/components/common/Button";
 import Input from "@/components/common/Input";
 import Text from "@/components/common/Text";
-import AlertModal from "../components/Modal/AlertModal";
-
+// import AlertModal from "../components/Modal/AlertModal";
 // import MyPageModal from "@/components/Modal/MypageModal";
 
 const ComponentsPage = () => {

@@ -4,6 +4,7 @@ import Input from "../common/Input";
 import Button from "../common/Button";
 import { postSignIn } from "@/api/user";
 import { useNavigate } from "react-router-dom";
+import useUserStore from "@/store/userStore/users";
 
 interface LoginProps {
     onSignUpModal(): void;
@@ -12,6 +13,7 @@ interface LoginProps {
 const Login = ({ onSignUpModal }: LoginProps) => {
     const [id, setId] = useState("");
     const [password, setPassword] = useState("");
+    const { setUserId, setUserName } = useUserStore();
     const navigate = useNavigate();
 
     const handleIdChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -28,8 +30,8 @@ const Login = ({ onSignUpModal }: LoginProps) => {
             if (response.length > 0) {
                 const userId = response[0].id;
                 const username = response[0].username;
-                localStorage.setItem("userId", userId);
-                localStorage.setItem("username", username);
+                setUserId(userId);
+                setUserName(username);
                 alert("로그인이 성고했습니다.");
                 navigate("/home");
             } else {
