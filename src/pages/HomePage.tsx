@@ -1,14 +1,14 @@
+import Text from "@/components/common/Text";
 import Button from "@/components/common/Button";
 import Table from "@/components/common/Table/Table";
-import Text from "@/components/common/Text";
 import AlertModal from "@/components/Modal/AlertModal";
 import MyPageModal from "@/components/Modal/MypageModal";
 import WriteModal from "@/components/Modal/WriteModal";
 import { useEffect, useState } from "react";
+import useUserStore from "@/store/userStore/users";
 import { useNavigate } from "react-router-dom";
 import { getTotalPost } from "@/api/post";
 import { postDeleteAccount } from "@/api/user";
-import useUserStore from "@/store/userStore/users";
 
 interface postProps {
     id: number;

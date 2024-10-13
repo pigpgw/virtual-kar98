@@ -1,9 +1,9 @@
-import { getUserInfo } from "@/api/user";
-import Button from "../common/Button";
 import Text from "@/components/common/Text";
-import { useEffect, useState } from "react";
+import Button from "../common/Button";
 import { createPortal } from "react-dom";
+import { useEffect, useState } from "react";
 import useUserStore from "@/store/userStore/users";
+import { getUserInfo } from "@/api/user";
 
 interface MyPageModalProps {
     title: string;

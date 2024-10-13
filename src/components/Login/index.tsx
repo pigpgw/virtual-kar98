@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Text from "@/components/common/Text";
 import Input from "../common/Input";
 import Button from "../common/Button";
+import useUserStore from "@/store/userStore/users";
 import { postSignIn } from "@/api/user";
 import { useNavigate } from "react-router-dom";
-import useUserStore from "@/store/userStore/users";
 
 interface LoginProps {
     onSignUpModal(): void;

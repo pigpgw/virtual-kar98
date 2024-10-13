@@ -1,7 +1,7 @@
-import React, { useState } from "react";
 import Text from "@/components/common/Text";
 import Login from "@/components/Login";
 import SignUpModal from "@/components/Modal/SignUpModal";
+import { useState } from "react";
 
 const LoginPage: React.FC = () => {
     const [isSignUpModalOpen, setIsSignUpModalOpen] = useState<boolean>(false);

@@ -1,6 +1,5 @@
-import React from "react";
-import Button from "../common/Button";
 import Text from "@/components/common/Text";
+import Button from "@/components/common/Button";
 import { createPortal } from "react-dom";
 
 interface AlertModalProps {

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Text from "@/components/common/Text";
 import Input from "../common/Input";
 import Button from "../common/Button";

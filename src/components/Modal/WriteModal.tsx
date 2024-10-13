@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { createPortal } from "react-dom";
 import Text from "@/components/common/Text";
 import Input from "../common/Input";
 import Button from "../common/Button";
+import { createPortal } from "react-dom";
+import { useEffect, useState } from "react";
 import { addPost, getTotalPost } from "@/api/post";
 
 interface WriteModalProps {

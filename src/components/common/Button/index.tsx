@@ -1,4 +1,4 @@
-import React, { ButtonHTMLAttributes } from "react";
+import { ButtonHTMLAttributes } from "react";
 
 const typeStyles = {
     default: "w-24 h-9 bg-white text-black border border-gray-300",
