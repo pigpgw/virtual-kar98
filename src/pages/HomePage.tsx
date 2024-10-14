@@ -157,13 +157,6 @@ const HomePage = () => {
                 />
             )}
             {deleteAccountModal && (
-                // <AlertModal
-                //     text="정말로 계정을 삭제하시겠습니까?"
-                //     confirmButtonString="예"
-                //     btn2="아니오"
-                //     onConfirm={handleDeleteAccount}
-                //     onCancel={() => setDeleteAccountModal(false)}
-                // />
                 <Modal
                     type="alert"
                     modalProps={{
@@ -176,7 +169,6 @@ const HomePage = () => {
                 />
             )}
             {writeModal && (
-                // <WriteModal closeModal={() => setWriteModal(false)} writePost={addNewPost} />
                 <Modal
                     type="write"
                     modalProps={{ closeModal: () => setWriteModal(false), writePost: addNewPost }}
