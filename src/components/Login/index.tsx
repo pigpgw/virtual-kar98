@@ -30,6 +30,7 @@ const Login = ({ onSignUpModal }: LoginProps) => {
             if (response.length > 0) {
                 const userId = response[0].id;
                 const username = response[0].username;
+                console.log("userid", userId, "usernmae", username);
                 setUserId(userId);
                 setUserName(username);
                 alert("로그인이 성고했습니다.");
@@ -41,7 +42,6 @@ const Login = ({ onSignUpModal }: LoginProps) => {
             alert("로그인에 실패했습니다.");
         }
     };
-
     const handleSignUp = () => {
         onSignUpModal();
     };
