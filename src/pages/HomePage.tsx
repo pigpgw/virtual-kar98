@@ -8,6 +8,7 @@ import { getTotalPost } from "@/api/post";
 import { postDeleteAccount } from "@/api/user";
 import { Modal } from "../components/Modal/index";
 import { MESSAGE } from "@/constants/description";
+import useModal from "@/hooks/useModal";
 
 interface postProps {
     id: number;
@@ -32,22 +33,15 @@ export class Posts {
 
 const HomePage = () => {
     // const posts = new Posts([]);
-    const [dummyData, setDummyData] = useState<postProps[]>([]);
-    const [myPageModal, setMyPageModal] = useState(false);
-    // const [myPageModal, setMyPageModal] = useReducer((prev) => !prev, false);
-    const [logoutModal, setLogoutModal] = useState(false);
-    const [deleteAccountModal, setDeleteAccountModal] = useState(false);
-    const [writeModal, setWriteModal] = useState(false);
     // const numPages = posts.numPages;
-
+    const { userId, resetUserId, resetUserName } = useUserStore();
+    const [dummyData, setDummyData] = useState<postProps[]>([]);
     const [page, setPage] = useState(1);
     const numPages = Math.ceil(dummyData.length / limit);
-
-    // 현재 페이지의 게시물 계산
     const currentPosts = dummyData.slice((page - 1) * limit, page * limit);
+    const { isOpen, openModal, closeModal } = useModal();
 
     const navigate = useNavigate();
-    const { userId, resetUserId, resetUserName } = useUserStore();
 
     useEffect(() => {
         fetchTotalPost();
@@ -94,8 +88,7 @@ const HomePage = () => {
                             type="my"
                             className="bg-black text-white"
                             onClick={() => {
-                                console.log("Opening MyPageModal");
-                                setMyPageModal(true);
+                                openModal("mypage");
                             }}
                         >
                             My
@@ -124,26 +117,26 @@ const HomePage = () => {
                         ))}
                     </div>
                     <div className="absolute bottom-10 right-10">
-                        <Button type="write1" onClick={() => setWriteModal(true)}>
+                        <Button type="write1" onClick={() => openModal("write")}>
                             글쓰기
                         </Button>
                     </div>
                 </div>
             </div>
-            {myPageModal && (
+            {isOpen("mypage") && (
                 <Modal
                     type="mypage"
                     modalProps={{
                         title: `${MESSAGE.MY_PAGE}`,
                         btn1: `${MESSAGE.LOGOUT}`,
                         btn2: `${MESSAGE.DELETE_ACCOUNT}`,
-                        onConfirm: () => setLogoutModal(true),
-                        onCancle: () => setDeleteAccountModal(true),
-                        closeModal: () => setMyPageModal(false),
+                        onConfirm: () => openModal("logout"),
+                        onCancle: () => openModal("deletAccount"),
+                        closeModal: () => closeModal("mypage"),
                     }}
                 />
             )}
-            {logoutModal && (
+            {isOpen("logout") && (
                 <Modal
                     type="alert"
                     modalProps={{
@@ -151,11 +144,11 @@ const HomePage = () => {
                         confirmButtonString: `${MESSAGE.YES}`,
                         btn2: `${MESSAGE.NO}`,
                         onConfirm: handleLogout,
-                        onCancle: () => setLogoutModal(false),
+                        onCancle: () => closeModal("logout"),
                     }}
                 />
             )}
-            {deleteAccountModal && (
+            {isOpen("deletAccount") && (
                 <Modal
                     type="alert"
                     modalProps={{
@@ -163,14 +156,14 @@ const HomePage = () => {
                         confirmButtonString: `${MESSAGE.YES}`,
                         btn2: `${MESSAGE.NO}`,
                         onConfirm: handleDeleteAccount,
-                        onCancle: () => setDeleteAccountModal(false),
+                        onCancle: () => closeModal("deletAccount"),
                     }}
                 />
             )}
-            {writeModal && (
+            {isOpen("write") && (
                 <Modal
                     type="write"
-                    modalProps={{ closeModal: () => setWriteModal(false), writePost: addNewPost }}
+                    modalProps={{ closeModal: () => closeModal("write"), writePost: addNewPost }}
                 />
             )}
         </>
