@@ -55,16 +55,16 @@ const WriteModal = ({ closeModal, writePost }: WriteModalProps) => {
     return (
         <div className="w-[800px] bg-black flex flex-col relative border border-white justify-center items-center rounded-xl pt-10 px-4">
             <Text size="h4" className="text-white mb-4">
-                Write Board
+                {MESSAGE.WRITE_BOARD}
             </Text>
             <Button type="my" className="absolute top-4 right-4 text-white" onClick={closeModal}>
-                X
+                {MESSAGE.CLOSE}
             </Button>
             <div className="w-4/5 flex-1 flex flex-col justify-between">
                 <div className="space-y-4">
                     <div className="flex items-center">
                         <Text size="h6" className="text-white w-1/5">
-                            title
+                            {MESSAGE.TITLE}
                         </Text>
                         <div className="flex-1">
                             <Input
@@ -76,7 +76,7 @@ const WriteModal = ({ closeModal, writePost }: WriteModalProps) => {
                     </div>
                     <div className="flex items-center">
                         <Text size="h6" className="text-white w-1/5">
-                            writer
+                            {MESSAGE.WRITER}
                         </Text>
                         <div className="flex-1">
                             <Input type="large" value={writer} disabled />
@@ -84,7 +84,7 @@ const WriteModal = ({ closeModal, writePost }: WriteModalProps) => {
                     </div>
                     <div className="flex items-center">
                         <Text size="h6" className="text-white w-1/5">
-                            date
+                            {MESSAGE.DATE}
                         </Text>
                         <div className="flex-1">
                             <Input type="large" value={date} disabled />
@@ -92,7 +92,7 @@ const WriteModal = ({ closeModal, writePost }: WriteModalProps) => {
                     </div>
                     <div className="flex items-start">
                         <Text size="h6" className="text-white w-1/5 pt-2">
-                            content
+                            {MESSAGE.CONTENT}
                         </Text>
                         <div className="flex-1">
                             <Input
@@ -106,7 +106,7 @@ const WriteModal = ({ closeModal, writePost }: WriteModalProps) => {
                 </div>
                 <div className="flex justify-center my-4">
                     <Button type="write2" onClick={handleSubmit}>
-                        <Text size="h6">write</Text>
+                        <Text size="h6">{MESSAGE.WRITE_BUTTON}</Text>
                     </Button>
                 </div>
             </div>

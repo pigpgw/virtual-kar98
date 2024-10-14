@@ -40,40 +40,40 @@ const SignUpModal = ({ onCancle }: Props) => {
     return (
         <div className="w-[436px] h-[536px] flex items-center justify-center flex-col bg-black rounded-e-2xl  bg-opacity-50 z-50 border border-white rounded-3xl">
             <Text size="h4" className="text-white">
-                sign up
+                {MESSAGE.SIGN_UP}
             </Text>
             <form onSubmit={handleSubmit} className="w-[400px] flex flex-col items-center p-5">
                 <div className="mb-4 w-full flex flex-col items-start">
                     <Text size="h6" className="self-start mb-2 text-white">
-                        ID
+                        {MESSAGE.MY_BUTTON}
                     </Text>
                     <Input
                         type="default"
                         value={id}
                         onChange={(e) => setId(e.target.value)}
-                        placeholder={MESSAGE.INPUT_ID_EMPTY_CONTENT}
+                        placeholder={MESSAGE.INPUT_ID_EMPTY}
                     />
                 </div>
                 <div className="mb-4 w-full flex flex-col items-start">
                     <Text size="h6" className="self-start mb-2 text-white">
-                        PASSWORD
+                        {MESSAGE.PASSWORD}
                     </Text>
                     <Input
                         type="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        placeholder={MESSAGE.INPUT_PASSWORD_EMPTY_CONTENT}
+                        placeholder={MESSAGE.INPUT_PASSWORD_EMPTY}
                     />
                 </div>
                 <div className="mb-4 w-full flex flex-col items-start">
                     <Text size="h6" className="self-start mb-2 text-white">
-                        PASSWORD CONFIRM
+                        {MESSAGE.PASSWORD_CONFIRM}
                     </Text>
                     <Input
                         type="password"
                         value={confirmPassword}
                         onChange={(e) => setConfirmPassword(e.target.value)}
-                        placeholder={MESSAGE.INPUT_CONFIRM_PASSWORD_EMPTY_CONTENT}
+                        placeholder={MESSAGE.INPUT_CONFIRM_PASSWORD_EMPTY}
                     />
                 </div>
                 <div className="flex pt-5">

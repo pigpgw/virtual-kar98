@@ -80,7 +80,7 @@ const HomePage = () => {
         <>
             <div className="w-screen h-screen bg-black flex flex-col p-10">
                 <Text size="h4" className="text-white">
-                    Jungle Board
+                    {MESSAGE.MAIN_LOGO}
                 </Text>
                 <div className="w-full h-full flex flex-col items-center justify-center">
                     <div className="absolute top-10 right-10">
@@ -91,15 +91,15 @@ const HomePage = () => {
                                 openModal("mypage");
                             }}
                         >
-                            My
+                            {MESSAGE.MY_BUTTON}
                         </Button>
                     </div>
                     <div className="flex flex-col w-full max-w-[1070px] pb-5">
                         <Text size="h5" className="text-white">
-                            welcome!
+                            {MESSAGE.WELCOME_TITLE}
                         </Text>
                         <Text size="h6" className="text-gray-700">
-                            Here is a list of Jungle notifications for this season
+                            {MESSAGE.NOTIFICATION_SUBTITLE}
                         </Text>
                     </div>
                     <Table posts={currentPosts} />
@@ -118,7 +118,7 @@ const HomePage = () => {
                     </div>
                     <div className="absolute bottom-10 right-10">
                         <Button type="write1" onClick={() => openModal("write")}>
-                            글쓰기
+                            {MESSAGE.WRITE_BUTTON}
                         </Button>
                     </div>
                 </div>

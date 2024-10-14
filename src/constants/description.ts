@@ -1,5 +1,5 @@
 export const MESSAGE = {
-    // 사용자 관련
+    // User 관련
     LOGIN_SUCCESS: "로그인이 성공했습니다.",
     LOGIN_FAIL: "로그인이 실패했습니다.",
     LOGOUT_SUCCESS: "로그아웃이 성공적으로 처리되었습니다.",
@@ -12,19 +12,19 @@ export const MESSAGE = {
     USER_DELETE_SUCCESS: "계정이 성공적으로 삭제되었습니다.",
     USER_DELETE_FAIL: "계정 삭제에 실패했습니다.",
 
-    // 게시글 관련
+    // Post 관련
     POST_CREATE_SUCCESS: "게시글이 성공적으로 작성되었습니다.",
     POST_CREATE_FAIL: "게시글 작성에 실패했습니다.",
     POST_GET_SUCCESS: "게시글을 성공적으로 불러왔습니다.",
     POST_GET_FAIL: "게시글을 불러오는데 실패했습니다.",
     POST_UPDATE_SUCCESS: "게시글이 성공적으로 수정되었습니다.",
     POST_UPDATE_FAIL: "게시글 수정에 실패했습니다.",
-    DELETE_POST_SUCCESS: "게시글이 성공적으로 삭제되었습니다.",
-    DELETE_POST_FAIL: "게시글 삭제를 실패하였습니다.",
-    CANNOT_FIND_POST: "게시물을 찾을 수 없습니다.",
-    CANNOT_GET_POST: "게시물을 가져올 수 없습니다.",
+    POST_DELETE_SUCCESS: "게시글이 성공적으로 삭제되었습니다.",
+    POST_DELETE_FAIL: "게시글 삭제를 실패하였습니다.",
+    POST_NOT_FOUND: "게시물을 찾을 수 없습니다.",
+    POST_GET_FAIL_2: "게시물을 가져올 수 없습니다.",
 
-    // 댓글 관련
+    // Comment 관련
     COMMENT_CREATE_SUCCESS: "댓글이 성공적으로 작성되었습니다.",
     COMMENT_CREATE_FAIL: "댓글 작성에 실패했습니다.",
     COMMENT_GET_SUCCESS: "댓글을 성공적으로 불러왔습니다.",
@@ -34,7 +34,7 @@ export const MESSAGE = {
     COMMENT_DELETE_SUCCESS: "댓글이 성공적으로 삭제되었습니다.",
     COMMENT_DELETE_FAIL: "댓글 삭제에 실패했습니다.",
 
-    // 입력창 경고문
+    // Input 관련
     INPUT_REQUIRED: "이 필드는 필수입니다.",
     INPUT_TOO_SHORT: "입력이 너무 짧습니다.",
     INPUT_TOO_LONG: "입력이 너무 깁니다.",
@@ -53,30 +53,45 @@ export const MESSAGE = {
     INPUT_EMPTY_CONTENT: "내용을 입력해주세요.",
     INPUT_INVALID_TAGS: "올바른 태그 형식이 아닙니다.",
     INPUT_COMMENT_EMPTY_CONTENT: "댓글을 입력해주세요.",
-    INPUT_ID_EMPTY_CONTENT: "아이디를 입력해주세요.",
-    INPUT_PASSWORD_EMPTY_CONTENT: "비밀번호를 입력해주세요.",
-    INPUT_CONFIRM_PASSWORD_EMPTY_CONTENT: "비밀번호를 한번 더 입력해주세요.",
+    INPUT_ID_EMPTY: "아이디를 입력해주세요.",
+    INPUT_PASSWORD_EMPTY: "비밀번호를 입력해주세요.",
+    INPUT_CONFIRM_PASSWORD_EMPTY: "비밀번호를 한번 더 입력해주세요.",
 
-    // 보안 관련
+    // Security 관련
     UNAUTHORIZED_ACCESS: "비정상적인 접근입니다. 로그인 페이지로 이동합니다.",
     SESSION_EXPIRED: "세션이 만료되었습니다. 다시 로그인해 주세요.",
     ACCOUNT_LOCKED: "계정이 잠겼습니다. 관리자에게 문의하세요.",
 
-    // 일반 오류 메시지
+    // Error 관련
     NETWORK_ERROR: "네트워크 오류가 발생했습니다. 다시 시도해 주세요.",
     UNEXPECTED_ERROR: "예기치 않은 오류가 발생했습니다. 다시 시도해 주세요.",
     PERMISSION_DENIED: "권한이 없습니다.",
+
+    // Confirmation 관련
     LOGOUT_CONFIRM: "정말 로그아웃하시겠습니까?",
     DELETE_ACCOUNT_CONFIRM: "정말로 계정을 삭제하시겠습니까?",
 
-    JUNGLE_BOARD: "Jungle Board",
+    // UI 관련
+    YES: "YES",
+    NO: "NO",
+    MAIN_LOGO: "Jungle Board",
     MY_BUTTON: "My",
     WELCOME: "welcome!",
     NOTIFICATION_LIST: "Here is a list of Jungle notifications for this season",
-    WRITE_BUTTON: "글쓰기",
+    WRITE_BUTTON: "Create Post",
     MY_PAGE: "MY_PAGE",
+    WRITE_BOARD: "WRITE_BOARD",
+    TITLE: "TITLE",
+    CLOSE: "X",
+    WRITER: "WRITER",
+    DATE: "DATE",
+    CONTENT: "CONTENT",
+    SIGN_UP: "SIGN_UP",
+    ID: "ID",
+    PASSWORD: "PASSWORD",
+    PASSWORD_CONFIRM: "PASSWORD_CONFIRM",
     LOGOUT: "LOGOUT",
     DELETE_ACCOUNT: "DELETE_ACCOUNT",
-    YES: "예",
-    NO: "아니오",
+    WELCOME_TITLE: "WELCOME",
+    NOTIFICATION_SUBTITLE: "NOTIFICATION_LIST",
 };

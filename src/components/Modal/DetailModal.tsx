@@ -43,7 +43,7 @@ const PostsDetail: React.FC<Props> = ({ postId, onClose }) => {
     const fetchDeletePost = async () => {
         try {
             await deletePostDetail(postId);
-            alert(MESSAGE.DELETE_POST_SUCCESS);
+            alert(MESSAGE.POST_DELETE_SUCCESS);
             onClose();
         } catch (e) {
             alert(e);
@@ -65,14 +65,14 @@ const PostsDetail: React.FC<Props> = ({ postId, onClose }) => {
             if (postResponse && postResponse.length > 0) {
                 setPost(postResponse[0]);
             } else {
-                setError(MESSAGE.CANNOT_GET_POST);
+                setError(MESSAGE.COMMENT_CREATE_FAIL);
             }
 
             if (commentResponse && commentResponse.length > 0) {
                 setComments(commentResponse);
             }
         } catch (e) {
-            setError(MESSAGE.CANNOT_FIND_POST);
+            setError(MESSAGE.POST_GET_FAIL);
         } finally {
             setIsLoading(false);
         }
