@@ -3,6 +3,7 @@ import Input from "../common/Input";
 import Button from "../common/Button";
 import { useEffect, useState } from "react";
 import { addPost, getTotalPost } from "@/api/post";
+import { MESSAGE } from "@/constants/description";
 
 interface WriteModalProps {
     closeModal: () => void;
@@ -27,8 +28,8 @@ const WriteModal = ({ closeModal, writePost }: WriteModalProps) => {
     }, [username]);
 
     const handleSubmit = async () => {
-        if (!title.trim()) alert("제목을 작성해주세요");
-        if (!content.trim()) alert("내용을 작성해주세요");
+        if (!title.trim()) alert(MESSAGE.INPUT_EMPTY_TITLE);
+        if (!content.trim()) alert(MESSAGE.INPUT_EMPTY_CONTENT);
         try {
             const totalPosts = await getTotalPost();
 
@@ -39,8 +40,7 @@ const WriteModal = ({ closeModal, writePost }: WriteModalProps) => {
                 content,
                 date,
             };
-            const response = await addPost(newPost);
-            alert(response);
+            await addPost(newPost);
             writePost(newPost);
             closeModal();
         } catch (e) {

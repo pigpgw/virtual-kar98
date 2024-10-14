@@ -3,6 +3,7 @@ import Button from "../common/Button";
 import useUserStore from "@/store/userStore/users";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import { MESSAGE } from "@/constants/description";
 
 interface MyPageModalProps {
     title: string;
@@ -18,7 +19,7 @@ const MyPageModal = ({ title, btn1, btn2, onConfirm, onCancle, closeModal }: MyP
 
     useEffect(() => {
         if (!userId) {
-            alert("비 정상적 접근입니다. 로그인 페이지로 이동합니다.");
+            alert(MESSAGE.UNAUTHORIZED_ACCESS);
             navigate("/");
         }
     }, [userId, navigate]);

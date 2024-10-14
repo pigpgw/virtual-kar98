@@ -3,6 +3,7 @@ import Text from "@/components/common/Text";
 import Input from "../common/Input";
 import Button from "../common/Button";
 import { postSignIn, postSignUp } from "@/api/user";
+import { MESSAGE } from "@/constants/description";
 
 interface Props {
     onCancle(): void;
@@ -16,12 +17,12 @@ const SignUpModal = ({ onCancle }: Props) => {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (password !== confirmPassword) {
-            alert("비밀번호가 일치하지 않습니다.");
+            alert(MESSAGE.INPUT_PASSWORD_MISMATCH);
             return;
         }
         const userExist = await postSignIn(id, password);
         if (userExist.length > 0) {
-            alert("이미 존재하는 아이디입니다.");
+            alert(MESSAGE.INPUT_USERNAME_TAKEN);
             setId("");
             setPassword("");
             setConfirmPassword("");
@@ -29,7 +30,7 @@ const SignUpModal = ({ onCancle }: Props) => {
         }
         try {
             await postSignUp({ username: id, password });
-            alert("회원가입이 완료되었습니다.");
+            alert(MESSAGE.SIGNUP_SUCCESS);
             onCancle();
         } catch (e) {
             alert(e);
@@ -50,7 +51,7 @@ const SignUpModal = ({ onCancle }: Props) => {
                         type="default"
                         value={id}
                         onChange={(e) => setId(e.target.value)}
-                        placeholder="아이디를 입력하세요"
+                        placeholder={MESSAGE.INPUT_ID_EMPTY_CONTENT}
                     />
                 </div>
                 <div className="mb-4 w-full flex flex-col items-start">
@@ -61,7 +62,7 @@ const SignUpModal = ({ onCancle }: Props) => {
                         type="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        placeholder="비밀번호를 입력하세요"
+                        placeholder={MESSAGE.INPUT_PASSWORD_EMPTY_CONTENT}
                     />
                 </div>
                 <div className="mb-4 w-full flex flex-col items-start">
@@ -72,7 +73,7 @@ const SignUpModal = ({ onCancle }: Props) => {
                         type="password"
                         value={confirmPassword}
                         onChange={(e) => setConfirmPassword(e.target.value)}
-                        placeholder="비밀번호를 다시 입력하세요"
+                        placeholder={MESSAGE.INPUT_CONFIRM_PASSWORD_EMPTY_CONTENT}
                     />
                 </div>
                 <div className="flex pt-5">

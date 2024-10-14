@@ -5,6 +5,7 @@ import Button from "../common/Button";
 import useUserStore from "@/store/userStore/users";
 import { postSignIn } from "@/api/user";
 import { useNavigate } from "react-router-dom";
+import { MESSAGE } from "@/constants/description";
 
 interface LoginProps {
     onSignUpModal(): void;
@@ -30,16 +31,15 @@ const Login = ({ onSignUpModal }: LoginProps) => {
             if (response.length > 0) {
                 const userId = response[0].id;
                 const username = response[0].username;
-                console.log("userid", userId, "usernmae", username);
                 setUserId(userId);
                 setUserName(username);
-                alert("로그인이 성고했습니다.");
+                alert(MESSAGE.LOGIN_SUCCESS);
                 navigate("/home");
             } else {
-                alert("로그인에 실패했습니다.");
+                alert(MESSAGE.LOGIN_FAIL);
             }
         } catch (e) {
-            alert("로그인에 실패했습니다.");
+            alert(MESSAGE.LOGIN_FAIL);
         }
     };
     const handleSignUp = () => {

@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { getTotalPost } from "@/api/post";
 import { postDeleteAccount } from "@/api/user";
 import { Modal } from "../components/Modal/index";
+import { MESSAGE } from "@/constants/description";
 
 interface postProps {
     id: number;
@@ -69,16 +70,14 @@ const HomePage = () => {
     };
 
     const handleLogout = () => {
-        console.log("로그아웃");
-        alert("로그아웃 성공");
+        alert(MESSAGE.LOGIN_SUCCESS);
         resetUserId();
         resetUserName();
         navigate("/");
     };
 
     const handleDeleteAccount = () => {
-        console.log("계정 삭제");
-        alert("계정 삭제 성공");
+        alert(MESSAGE.USER_DELETE_SUCCESS);
         postDeleteAccount(`${userId}`);
         navigate("/");
     };
@@ -135,9 +134,9 @@ const HomePage = () => {
                 <Modal
                     type="mypage"
                     modalProps={{
-                        title: "MY_PAGE",
-                        btn1: "LOGOUT",
-                        btn2: "DELETE_ACCOUNT",
+                        title: `${MESSAGE.MY_PAGE}`,
+                        btn1: `${MESSAGE.LOGOUT}`,
+                        btn2: `${MESSAGE.DELETE_ACCOUNT}`,
                         onConfirm: () => setLogoutModal(true),
                         onCancle: () => setDeleteAccountModal(true),
                         closeModal: () => setMyPageModal(false),
@@ -148,9 +147,9 @@ const HomePage = () => {
                 <Modal
                     type="alert"
                     modalProps={{
-                        text: "정말 로그아웃하시겠습니까?",
-                        confirmButtonString: "예",
-                        btn2: "아니오",
+                        text: `${MESSAGE.LOGOUT_CONFIRM}`,
+                        confirmButtonString: `${MESSAGE.YES}`,
+                        btn2: `${MESSAGE.NO}`,
                         onConfirm: handleLogout,
                         onCancle: () => setLogoutModal(false),
                     }}
@@ -160,9 +159,9 @@ const HomePage = () => {
                 <Modal
                     type="alert"
                     modalProps={{
-                        text: "정말로 계정을 삭제하시겠습니까?",
-                        confirmButtonString: "예",
-                        btn2: "아니오",
+                        text: `${MESSAGE.DELETE_ACCOUNT_CONFIRM}`,
+                        confirmButtonString: `${MESSAGE.YES}`,
+                        btn2: `${MESSAGE.NO}`,
                         onConfirm: handleDeleteAccount,
                         onCancle: () => setDeleteAccountModal(false),
                     }}

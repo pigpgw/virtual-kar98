@@ -6,6 +6,7 @@ import Text from "@/components/common/Text";
 import Input from "../common/Input";
 import Button from "../common/Button";
 import useUserStore from "@/store/userStore/users";
+import { MESSAGE } from "@/constants/description";
 
 interface Post {
     title: string;
@@ -42,7 +43,7 @@ const PostsDetail: React.FC<Props> = ({ postId, onClose }) => {
     const fetchDeletePost = async () => {
         try {
             await deletePostDetail(postId);
-            alert("게시글이 성공적으로 삭제되었습니다.");
+            alert(MESSAGE.DELETE_POST_SUCCESS);
             onClose();
         } catch (e) {
             alert(e);
@@ -64,14 +65,14 @@ const PostsDetail: React.FC<Props> = ({ postId, onClose }) => {
             if (postResponse && postResponse.length > 0) {
                 setPost(postResponse[0]);
             } else {
-                setError("게시물을 찾을 수 없습니다.");
+                setError(MESSAGE.CANNOT_GET_POST);
             }
 
             if (commentResponse && commentResponse.length > 0) {
                 setComments(commentResponse);
             }
         } catch (e) {
-            setError("데이터를 불러오는 데 실패했습니다.");
+            setError(MESSAGE.CANNOT_FIND_POST);
         } finally {
             setIsLoading(false);
         }
@@ -93,7 +94,7 @@ const PostsDetail: React.FC<Props> = ({ postId, onClose }) => {
 
     const submitComments = async () => {
         if (!writeComment.trim()) {
-            alert("댓글 내용을 입력해주세요.");
+            alert(MESSAGE.INPUT_COMMENT_EMPTY_CONTENT);
             return;
         }
 
@@ -109,7 +110,7 @@ const PostsDetail: React.FC<Props> = ({ postId, onClose }) => {
             setComments((prevComments) => [...prevComments, response]);
             setWriteComment("");
         } catch (e) {
-            alert("댓글 추가에 실패했습니다.");
+            alert(MESSAGE.COMMENT_CREATE_FAIL);
         }
     };
 
