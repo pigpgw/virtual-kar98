@@ -1,13 +1,13 @@
 import Text from "@/components/common/Text";
 import Button from "@/components/common/Button";
 import Table from "@/components/common/Table/Table";
+import { Modal } from "@/components/Modal/index";
+import { MESSAGE } from "@/constants/description";
 import { useEffect, useState } from "react";
 import useUserStore from "@/store/userStore/users";
 import { useNavigate } from "react-router-dom";
 import { getTotalPost } from "@/api/post";
 import { postDeleteAccount } from "@/api/user";
-import { Modal } from "../components/Modal/index";
-import { MESSAGE } from "@/constants/description";
 import useModal from "@/hooks/useModal";
 
 interface postProps {
@@ -17,7 +17,8 @@ interface postProps {
     author: string;
     date: string;
 }
-const limit = 10; // 페이지당 게시물 수를 상수로 설정
+
+const limit = MESSAGE.TABLE_PLAGE_LIMIT_NUMBER; // 페이지당 게시물 수를 상수로 설정
 
 // 객체 지향 프로그래밍도 같이 할 수 있음.(데이터를 다룰 때)
 export class Posts {
@@ -127,9 +128,6 @@ const HomePage = () => {
                 <Modal
                     type="mypage"
                     modalProps={{
-                        title: `${MESSAGE.MY_PAGE}`,
-                        btn1: `${MESSAGE.LOGOUT}`,
-                        btn2: `${MESSAGE.DELETE_ACCOUNT}`,
                         onConfirm: () => openModal("logout"),
                         onCancle: () => openModal("deletAccount"),
                         closeModal: () => closeModal("mypage"),
