@@ -1,10 +1,9 @@
 import Text from "@/components/common/Text";
 import Button from "../common/Button";
+import { MESSAGE } from "@/constants/description";
+import { useEffect } from "react";
 import useUserStore from "@/store/userStore/users";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
-import { MESSAGE } from "@/constants/description";
-
 interface MyPageModalProps {
     title: string;
     btn1: string;

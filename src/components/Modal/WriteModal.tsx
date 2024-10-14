@@ -1,10 +1,10 @@
 import Text from "@/components/common/Text";
 import Input from "../common/Input";
 import Button from "../common/Button";
-import { useEffect, useState } from "react";
-import { addPost, getTotalPost } from "@/api/post";
 import { MESSAGE } from "@/constants/description";
-
+import { useState } from "react";
+import useUserStore from "../../store/userStore/users";
+import { addPost, getTotalPost } from "@/api/post";
 interface WriteModalProps {
     closeModal: () => void;
     writePost: (newPost: {
@@ -18,14 +18,9 @@ interface WriteModalProps {
 
 const WriteModal = ({ closeModal, writePost }: WriteModalProps) => {
     const [title, setTitle] = useState("");
-    const [writer, setWriter] = useState("");
     const [content, setContent] = useState("");
     const [date] = useState(() => new Date().toLocaleDateString("ko-KR"));
-    const username = localStorage.getItem("username");
-
-    useEffect(() => {
-        if (username) setWriter(String(username));
-    }, [username]);
+    const { username } = useUserStore();
 
     const handleSubmit = async () => {
         if (!title.trim()) alert(MESSAGE.INPUT_EMPTY_TITLE);
@@ -36,7 +31,7 @@ const WriteModal = ({ closeModal, writePost }: WriteModalProps) => {
             const newPost = {
                 id: String(totalPosts.length + 1),
                 title,
-                author: writer,
+                author: username,
                 content,
                 date,
             };
@@ -79,7 +74,7 @@ const WriteModal = ({ closeModal, writePost }: WriteModalProps) => {
                             {MESSAGE.WRITER}
                         </Text>
                         <div className="flex-1">
-                            <Input type="large" value={writer} disabled />
+                            <Input type="large" value={username} disabled />
                         </div>
                     </div>
                     <div className="flex items-center">
