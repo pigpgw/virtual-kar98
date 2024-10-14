@@ -1,6 +1,6 @@
 import Text from "@/components/common/Text";
 import Login from "@/components/Login";
-import SignUpModal from "@/components/Modal/SignUpModal";
+import { Modal } from "@/components/Modal";
 import { useState } from "react";
 
 const LoginPage: React.FC = () => {
@@ -18,7 +18,9 @@ const LoginPage: React.FC = () => {
         <div className="w-full h-screen flex">
             <LoginSidebar />
             <Login onSignUpModal={handleOpenSignUpModal} />
-            {isSignUpModalOpen && <SignUpModal onCancle={handleCloseSignUpModal} />}
+            {isSignUpModalOpen && (
+                <Modal type="signup" modalProps={{ onCancle: handleCloseSignUpModal }} />
+            )}
         </div>
     );
 };

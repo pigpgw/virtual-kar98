@@ -1,14 +1,12 @@
 import Text from "@/components/common/Text";
 import Button from "@/components/common/Button";
 import Table from "@/components/common/Table/Table";
-import AlertModal from "@/components/Modal/AlertModal";
-import MyPageModal from "@/components/Modal/MypageModal";
-import WriteModal from "@/components/Modal/WriteModal";
 import { useEffect, useState } from "react";
 import useUserStore from "@/store/userStore/users";
 import { useNavigate } from "react-router-dom";
 import { getTotalPost } from "@/api/post";
 import { postDeleteAccount } from "@/api/user";
+import { Modal } from "../components/Modal/index";
 
 interface postProps {
     id: number;
@@ -52,7 +50,7 @@ const HomePage = () => {
 
     useEffect(() => {
         fetchTotalPost();
-    }, [dummyData]);
+    }, []);
 
     const fetchTotalPost = async () => {
         try {
@@ -132,35 +130,55 @@ const HomePage = () => {
                 </div>
             </div>
             {myPageModal && (
-                <MyPageModal
-                    title="MY PAGE"
-                    btn1="LOGOUT"
-                    btn2="DELETE ACCOUNT"
-                    onConfirm={() => setLogoutModal(true)}
-                    onCancle={() => setDeleteAccountModal(true)}
-                    closeModal={() => setMyPageModal(false)}
+                <Modal
+                    type="mypage"
+                    modalProps={{
+                        title: "MY_PAGE",
+                        btn1: "LOGOUT",
+                        btn2: "DELETE_ACCOUNT",
+                        onConfirm: () => setLogoutModal(true),
+                        onCancle: () => setDeleteAccountModal(true),
+                        closeModal: () => setMyPageModal(false),
+                    }}
                 />
             )}
             {logoutModal && (
-                <AlertModal
-                    text="정말 로그아웃하시겠습니까?"
-                    confirmButtonString="예"
-                    btn2="아니오"
-                    onConfirm={handleLogout}
-                    onCancel={() => setLogoutModal(false)}
+                <Modal
+                    type="alert"
+                    modalProps={{
+                        text: "정말 로그아웃하시겠습니까?",
+                        confirmButtonString: "예",
+                        btn2: "아니오",
+                        onConfirm: { handleLogout },
+                        onCancle: () => setLogoutModal(false),
+                    }}
                 />
             )}
             {deleteAccountModal && (
-                <AlertModal
-                    text="정말로 계정을 삭제하시겠습니까?"
-                    confirmButtonString="예"
-                    btn2="아니오"
-                    onConfirm={handleDeleteAccount}
-                    onCancel={() => setDeleteAccountModal(false)}
+                // <AlertModal
+                //     text="정말로 계정을 삭제하시겠습니까?"
+                //     confirmButtonString="예"
+                //     btn2="아니오"
+                //     onConfirm={handleDeleteAccount}
+                //     onCancel={() => setDeleteAccountModal(false)}
+                // />
+                <Modal
+                    type="alert"
+                    modalProps={{
+                        text: "정말로 계정을 삭제하시겠습니까?",
+                        confirmButtonString: "예",
+                        btn2: "아니오",
+                        onConfirm: { handleDeleteAccount },
+                        onCancle: () => setDeleteAccountModal(false),
+                    }}
                 />
             )}
             {writeModal && (
-                <WriteModal closeModal={() => setWriteModal(false)} writePost={addNewPost} />
+                // <WriteModal closeModal={() => setWriteModal(false)} writePost={addNewPost} />
+                <Modal
+                    type="write"
+                    modalProps={{ closeModal: () => setWriteModal(false), writePost: addNewPost }}
+                />
             )}
         </>
     );
