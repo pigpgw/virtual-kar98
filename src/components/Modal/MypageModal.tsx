@@ -1,6 +1,8 @@
 import Text from "@/components/common/Text";
 import Button from "../common/Button";
 import useUserStore from "@/store/userStore/users";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 interface MyPageModalProps {
     title: string;
@@ -12,8 +14,14 @@ interface MyPageModalProps {
 }
 const MyPageModal = ({ title, btn1, btn2, onConfirm, onCancle, closeModal }: MyPageModalProps) => {
     const { userId, username } = useUserStore();
+    const navigate = useNavigate();
 
-    if (!userId) return null;
+    useEffect(() => {
+        if (!userId) {
+            alert("비 정상적 접근입니다. 로그인 페이지로 이동합니다.");
+            navigate("/");
+        }
+    }, [userId, navigate]);
 
     return (
         <div className="w-[436px] h-[336px] flex items-center justify-center flex-col rounded-e-2xl bg-black border border-white rounded-3xl text-white p-5">

@@ -69,6 +69,7 @@ const HomePage = () => {
     };
 
     const handleLogout = () => {
+        console.log("로그아웃");
         alert("로그아웃 성공");
         resetUserId();
         resetUserName();
@@ -76,6 +77,7 @@ const HomePage = () => {
     };
 
     const handleDeleteAccount = () => {
+        console.log("계정 삭제");
         alert("계정 삭제 성공");
         postDeleteAccount(`${userId}`);
         navigate("/");
@@ -149,7 +151,7 @@ const HomePage = () => {
                         text: "정말 로그아웃하시겠습니까?",
                         confirmButtonString: "예",
                         btn2: "아니오",
-                        onConfirm: { handleLogout },
+                        onConfirm: handleLogout,
                         onCancle: () => setLogoutModal(false),
                     }}
                 />
@@ -168,7 +170,7 @@ const HomePage = () => {
                         text: "정말로 계정을 삭제하시겠습니까?",
                         confirmButtonString: "예",
                         btn2: "아니오",
-                        onConfirm: { handleDeleteAccount },
+                        onConfirm: handleDeleteAccount,
                         onCancle: () => setDeleteAccountModal(false),
                     }}
                 />

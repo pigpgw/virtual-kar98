@@ -9,11 +9,6 @@
       "id": "5008",
       "username": "qwe",
       "password": "qwe"
-    },
-    {
-      "id": "7375",
-      "username": "admin",
-      "password": "admin"
     }
   ],
   "posts": [
@@ -125,112 +120,112 @@
   ],
   "comments": [
     {
-      "id": 1,
+      "id": "1",
       "postId": 1,
       "author": "qwe",
       "content": "어제 새벽에 라면먹은거 비밀임",
       "createdAt": "2024-10-09T16:03:48.133Z"
     },
     {
-      "id": 7,
+      "id": "7",
       "postId": 7,
       "author": "qwe",
       "content": "돼지야",
       "createdAt": "2024-10-09T16:14:08.286Z"
     },
     {
-      "id": 7,
+      "id": "7",
       "postId": 7,
       "author": "qwe",
       "content": "나가",
       "createdAt": "2024-10-09T16:14:09.474Z"
     },
     {
-      "id": 7,
+      "id": "7",
       "postId": 7,
       "author": "qwe",
       "content": "돼지야",
       "createdAt": "2024-10-09T16:14:11.580Z"
     },
     {
-      "id": 9,
+      "id": "9",
       "postId": 9,
       "author": "qkrrjsdn",
       "content": "나도.",
       "createdAt": "2024-10-09T16:30:38.610Z"
     },
     {
-      "id": 9,
+      "id": "9",
       "postId": 9,
       "author": "qkrrjsdn",
       "content": "ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ",
       "createdAt": "2024-10-09T16:30:42.365Z"
     },
     {
-      "id": 15,
+      "id": "15",
       "postId": 15,
       "author": "qkrrjsdn",
       "content": "꼭 읽어주세요",
       "createdAt": "2024-10-09T16:30:50.988Z"
     },
     {
-      "id": 16,
+      "id": "16",
       "postId": 16,
       "author": "admin",
       "content": "나는 바보다",
       "createdAt": "2024-10-10T01:25:13.916Z"
     },
     {
-      "id": 16,
+      "id": "16",
       "postId": 16,
       "author": "admin",
       "content": "ㅁㄴ이ㅏㅇ;민아ㅣㅁㄴ;암ㄴㅇ",
       "createdAt": "2024-10-10T01:57:23.336Z"
     },
     {
-      "id": 16,
+      "id": "16",
       "postId": 16,
       "author": "admin",
       "content": "ㅇㅁ",
       "createdAt": "2024-10-10T01:57:23.864Z"
     },
     {
-      "id": 16,
+      "id": "16",
       "postId": 16,
       "author": "admin",
       "content": "ㄴㅇㅁㄴ",
       "createdAt": "2024-10-10T01:57:24.122Z"
     },
     {
-      "id": 16,
+      "id": "16",
       "postId": 16,
       "author": "admin",
       "content": "ㅇㅇㅁㄴ",
       "createdAt": "2024-10-10T01:57:24.553Z"
     },
     {
-      "id": 16,
+      "id": "16",
       "postId": 16,
       "author": "admin",
       "content": "ㅇㅁㄴㅁㄴ",
       "createdAt": "2024-10-10T01:57:25.001Z"
     },
     {
-      "id": 16,
+      "id": "16",
       "postId": 16,
       "author": "admin",
       "content": "ㅇㅁㄴ",
       "createdAt": "2024-10-10T01:57:25.610Z"
     },
     {
-      "id": 16,
+      "id": "16",
       "postId": 16,
       "author": "admin",
       "content": "ㅇㅁㄴ",
       "createdAt": "2024-10-10T01:57:26.145Z"
     },
     {
-      "id": 16,
+      "id": "16",
       "postId": 16,
       "author": "admin",
       "content": "ㅇㅁㄴㅇ",
