@@ -4,11 +4,11 @@ import Table from "@/components/common/Table/Table";
 import { Modal } from "@/components/Modal/index";
 import { MESSAGE } from "@/constants/description";
 import { useEffect, useState } from "react";
+import useModal from "@/hooks/useModal";
 import useUserStore from "@/store/userStore/users";
 import { useNavigate } from "react-router-dom";
 import { getTotalPost } from "@/api/post";
 import { postDeleteAccount } from "@/api/user";
-import useModal from "@/hooks/useModal";
 
 interface postProps {
     id: number;
@@ -37,10 +37,11 @@ const HomePage = () => {
     // const numPages = posts.numPages;
     const { userId, resetUserId, resetUserName } = useUserStore();
     const [dummyData, setDummyData] = useState<postProps[]>([]);
+    const { isOpen, openModal, closeModal } = useModal();
+
     const [page, setPage] = useState(1);
     const numPages = Math.ceil(dummyData.length / limit);
     const currentPosts = dummyData.slice((page - 1) * limit, page * limit);
-    const { isOpen, openModal, closeModal } = useModal();
 
     const navigate = useNavigate();
 
@@ -124,16 +125,7 @@ const HomePage = () => {
                     </div>
                 </div>
             </div>
-            {isOpen("mypage") && (
-                <Modal
-                    type="mypage"
-                    modalProps={{
-                        onConfirm: () => openModal("logout"),
-                        onCancle: () => openModal("deletAccount"),
-                        closeModal: () => closeModal("mypage"),
-                    }}
-                />
-            )}
+            {isOpen("mypage") && <Modal type="mypage" />}
             {isOpen("logout") && (
                 <Modal
                     type="alert"

@@ -4,13 +4,11 @@ import { MESSAGE } from "@/constants/description";
 import { useEffect } from "react";
 import useUserStore from "@/store/userStore/users";
 import { useNavigate } from "react-router-dom";
-interface MyPageModalProps {
-    onConfirm(): void;
-    onCancle(): void;
-    closeModal(): void;
-}
-const MyPageModal = ({ onConfirm, onCancle, closeModal }: MyPageModalProps) => {
+import useModal from "@/hooks/useModal";
+
+const MyPageModal = () => {
     const { userId, username } = useUserStore();
+    const { openModal, closeModal } = useModal();
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -23,7 +21,7 @@ const MyPageModal = ({ onConfirm, onCancle, closeModal }: MyPageModalProps) => {
     return (
         <div className="w-[436px] h-[336px] flex items-center justify-center flex-col rounded-e-2xl bg-black border border-white rounded-3xl text-white p-5">
             <div className="w-full flex justify-end relative right-5 bottom-2">
-                <Button type="my" onClick={closeModal} className="text-white flex">
+                <Button type="my" onClick={() => closeModal("mypage")} className="text-white flex">
                     {MESSAGE.CLOSE}
                 </Button>
             </div>
@@ -39,10 +37,10 @@ const MyPageModal = ({ onConfirm, onCancle, closeModal }: MyPageModalProps) => {
                 </Text>
             </div>
             <div className="pt-5 flex flex-col">
-                <Button type="logout" onClick={onConfirm}>
+                <Button type="logout" onClick={() => openModal("logout")}>
                     <Text size="body">{MESSAGE.LOGOUT}</Text>
                 </Button>
-                <Button type="delete" onClick={onCancle}>
+                <Button type="delete" onClick={() => openModal("deletAccount")}>
                     {MESSAGE.DELETE_ACCOUNT}
                 </Button>
             </div>

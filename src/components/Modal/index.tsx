@@ -10,7 +10,7 @@ type ModalType = "mypage" | "signup" | "write" | "post" | "alert";
 interface ModalProps {
     type: ModalType;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    modalProps: any;
+    modalProps?: any;
 }
 
 const modalComponents = {
