@@ -11,20 +11,17 @@ import { getTotalPost } from "@/api/post/post";
 import { postDeleteAccount } from "@/api/user";
 import { Post } from "@/api/post/dto";
 
-const limit = MESSAGE.TABLE_PLAGE_LIMIT_NUMBER; // 페이지당 게시물 수를 상수로 설정
+const limit = MESSAGE.TABLE_PLAGE_LIMIT_NUMBER;
 
 const HomePage = () => {
-    // const posts = new Posts([]);
-    // const numPages = posts.numPages;
-    const { userId, resetUserId, resetUserName } = useUserStore();
     const [dummyData, setDummyData] = useState<Post[]>([]);
+    const { userId, resetUserId, resetUserName } = useUserStore();
     const { isOpen, openModal, closeModal } = useModal();
+    const navigate = useNavigate();
 
     const [page, setPage] = useState(1);
     const numPages = Math.ceil(dummyData.length / limit);
     const currentPosts = dummyData.slice((page - 1) * limit, page * limit);
-
-    const navigate = useNavigate();
 
     useEffect(() => {
         fetchTotalPost();
