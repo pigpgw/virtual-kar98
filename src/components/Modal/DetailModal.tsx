@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { createPortal } from "react-dom";
-import { deletePostDetail, getPostDetail } from "@/api/post";
+import { deletePostDetail, getPostDetail } from "@/api/post/post";
 import { addComment, getComment } from "@/api/comment";
 import Text from "@/components/common/Text";
 import Input from "../common/Input";

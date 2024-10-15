@@ -7,36 +7,17 @@ import { useEffect, useState } from "react";
 import useModal from "@/hooks/useModal";
 import useUserStore from "@/store/userStore/users";
 import { useNavigate } from "react-router-dom";
-import { getTotalPost } from "@/api/post";
+import { getTotalPost } from "@/api/post/post";
 import { postDeleteAccount } from "@/api/user";
-
-interface postProps {
-    id: number;
-    title: string;
-    content: string;
-    author: string;
-    date: string;
-}
+import { Post } from "@/api/post/dto";
 
 const limit = MESSAGE.TABLE_PLAGE_LIMIT_NUMBER; // 페이지당 게시물 수를 상수로 설정
-
-// 객체 지향 프로그래밍도 같이 할 수 있음.(데이터를 다룰 때)
-export class Posts {
-    props: postProps[];
-    constructor(props: postProps[]) {
-        this.props = props;
-    }
-
-    get numPages() {
-        return Math.ceil(this.props.length / limit);
-    }
-}
 
 const HomePage = () => {
     // const posts = new Posts([]);
     // const numPages = posts.numPages;
     const { userId, resetUserId, resetUserName } = useUserStore();
-    const [dummyData, setDummyData] = useState<postProps[]>([]);
+    const [dummyData, setDummyData] = useState<Post[]>([]);
     const { isOpen, openModal, closeModal } = useModal();
 
     const [page, setPage] = useState(1);
@@ -52,13 +33,13 @@ const HomePage = () => {
     const fetchTotalPost = async () => {
         try {
             const response = await getTotalPost();
-            setDummyData(response.sort((a: postProps, b: postProps) => b.id - a.id));
+            setDummyData(response);
         } catch (e) {
             alert(e);
         }
     };
 
-    const addNewPost = (newpost: Omit<postProps, "id">) => {
+    const addNewPost = (newpost: Omit<Post, "id">) => {
         setDummyData((prevData) => {
             const updateData = [{ id: prevData.length + 1, ...newpost }, ...prevData];
             return updateData.sort((a, b) => b.id - a.id);
@@ -95,6 +76,7 @@ const HomePage = () => {
                         >
                             {MESSAGE.MY_BUTTON}
                         </Button>
+                        {isOpen("mypage") && <Modal type="mypage" />}
                     </div>
                     <div className="flex flex-col w-full max-w-[1070px] pb-5">
                         <Text size="h5" className="text-white">
@@ -122,10 +104,18 @@ const HomePage = () => {
                         <Button type="write1" onClick={() => openModal("write")}>
                             {MESSAGE.WRITE_BUTTON}
                         </Button>
+                        {isOpen("write") && (
+                            <Modal
+                                type="write"
+                                modalProps={{
+                                    closeModal: () => closeModal("write"),
+                                    writePost: addNewPost,
+                                }}
+                            />
+                        )}
                     </div>
                 </div>
             </div>
-            {isOpen("mypage") && <Modal type="mypage" />}
             {isOpen("logout") && (
                 <Modal
                     type="alert"
@@ -148,12 +138,6 @@ const HomePage = () => {
                         onConfirm: handleDeleteAccount,
                         onCancle: () => closeModal("deletAccount"),
                     }}
-                />
-            )}
-            {isOpen("write") && (
-                <Modal
-                    type="write"
-                    modalProps={{ closeModal: () => closeModal("write"), writePost: addNewPost }}
                 />
             )}
         </>

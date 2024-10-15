@@ -4,7 +4,7 @@ import Button from "../common/Button";
 import { MESSAGE } from "@/constants/description";
 import { useState } from "react";
 import useUserStore from "../../store/userStore/users";
-import { addPost, getTotalPost } from "@/api/post";
+import { addPost, getTotalPost } from "@/api/post/post";
 interface WriteModalProps {
     closeModal: () => void;
     writePost: (newPost: {

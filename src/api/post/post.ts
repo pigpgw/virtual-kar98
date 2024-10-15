@@ -1,4 +1,5 @@
 import axios from "axios";
+import { PostDTO } from "./dto";
 
 const HOST = import.meta.env.VITE_BASE_API_URL;
 
@@ -9,7 +10,7 @@ export const addPost = async (post: { title: string; content: string; author: st
 
 export const getTotalPost = async () => {
     const response = await axios.get(`${HOST}/posts`);
-    return response.data;
+    return new PostDTO(response.data).posts;
 };
 
 export const getPostDetail = async (postId: number) => {

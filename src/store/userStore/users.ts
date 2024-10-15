@@ -9,7 +9,7 @@ interface UserState {
     resetUserName: () => void;
 }
 
-const useUserStore = create<UserState>((set) => ({
+const useUserStore = create<UserState>()((set) => ({
     userId: "",
     username: "",
     setUserId: (id: string) => set({ userId: id }),

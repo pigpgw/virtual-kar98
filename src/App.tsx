@@ -22,7 +22,7 @@ const AuthWrapper = ({ children }: AuthWrapperProps) => {
     return <>{children}</>;
 };
 
-const App: React.FC = () => {
+const App = () => {
     return (
         <Routes>
             <Route path="/" element={<LoginPage />} />
