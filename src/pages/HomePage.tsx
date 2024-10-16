@@ -3,45 +3,20 @@ import Button from "@/components/common/Button";
 import Table from "@/components/common/Table/Table";
 import { Modal } from "@/components/Modal/index";
 import { MESSAGE } from "@/constants/description";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import useModal from "@/hooks/useModal";
 import useUserStore from "@/store/userStore/users";
 import { useNavigate } from "react-router-dom";
-import { getTotalPost } from "@/api/post/post";
 import { postDeleteAccount } from "@/api/user";
-import { Post } from "@/api/post/dto";
+import { useGetAllPostsQuery } from "@/hooks/react-query/usePostQuery";
 
 const limit = MESSAGE.TABLE_PLAGE_LIMIT_NUMBER;
 
 const HomePage = () => {
-    const [dummyData, setDummyData] = useState<Post[]>([]);
+    const { data, isError, isLoading } = useGetAllPostsQuery();
     const { userId, resetUserId, resetUserName } = useUserStore();
     const { isOpen, openModal, closeModal } = useModal();
     const navigate = useNavigate();
-
-    const [page, setPage] = useState(1);
-    const numPages = Math.ceil(dummyData.length / limit);
-    const currentPosts = dummyData.slice((page - 1) * limit, page * limit);
-
-    useEffect(() => {
-        fetchTotalPost();
-    }, []);
-
-    const fetchTotalPost = async () => {
-        try {
-            const response = await getTotalPost();
-            setDummyData(response);
-        } catch (e) {
-            alert(e);
-        }
-    };
-
-    const addNewPost = (newpost: Omit<Post, "id">) => {
-        setDummyData((prevData) => {
-            const updateData = [{ id: prevData.length + 1, ...newpost }, ...prevData];
-            return updateData.sort((a, b) => b.id - a.id);
-        });
-    };
 
     const handleLogout = () => {
         alert(MESSAGE.LOGIN_SUCCESS);
@@ -55,6 +30,17 @@ const HomePage = () => {
         postDeleteAccount(`${userId}`);
         navigate("/");
     };
+    const [page, setPage] = useState(1);
+    if (!data) return null;
+    const posts = data.map(({ date, ...post }) => ({
+        date: date.toLocaleString(),
+        ...post,
+    }));
+    const numPages = Math.ceil(posts.length / limit);
+    const currentPosts = posts.slice((page - 1) * limit, page * limit);
+
+    if (isLoading) return <div>로딩중입니다.</div>;
+    if (isError) return <div>게시판글 가져오기를 실패했습니다.</div>;
 
     return (
         <>
@@ -106,7 +92,6 @@ const HomePage = () => {
                                 type="write"
                                 modalProps={{
                                     closeModal: () => closeModal("write"),
-                                    writePost: addNewPost,
                                 }}
                             />
                         )}

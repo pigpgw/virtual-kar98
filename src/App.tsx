@@ -6,7 +6,6 @@ import LoginPage from "./pages/LoginPage";
 import HomePage from "./pages/HomePage";
 import useUserStore from "./store/userStore/users";
 import { ReactNode } from "react";
-
 interface AuthWrapperProps {
     children: ReactNode;
 }

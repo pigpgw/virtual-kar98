@@ -27,7 +27,9 @@ const Login = ({ onSignUpModal }: LoginProps) => {
 
     const handleLogin = async () => {
         try {
+            console.log("id", id, password);
             const response = await postSignIn(id, password);
+            console.log("id", id, password);
             if (response.length > 0) {
                 const userId = response[0].id;
                 const username = response[0].username;

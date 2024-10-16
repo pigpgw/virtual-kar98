@@ -4,7 +4,7 @@ import { Modal } from "@/components/Modal";
 import { useState } from "react";
 
 const LoginPage: React.FC = () => {
-    const [isSignUpModalOpen, setIsSignUpModalOpen] = useState<boolean>(false);
+    const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false);
 
     const handleCloseSignUpModal = (): void => {
         setIsSignUpModalOpen(false);

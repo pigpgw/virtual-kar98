@@ -8,12 +8,12 @@ export const addPost = async (post: { title: string; content: string; author: st
     return response.data;
 };
 
-export const getTotalPost = async () => {
+export const getTotalPost = async (): Promise<Array<PostDTO>> => {
     const response = await axios.get(`${HOST}/posts`);
     return response.data.map((post: Post) => new PostDTO(post));
 };
 
-export const getPostDetail = async (postId: number) => {
+export const getPostDetail = async (postId: number): Promise<Post> => {
     const response = await axios.get(`${HOST}/posts?id=${postId}`);
     return response.data;
 };
