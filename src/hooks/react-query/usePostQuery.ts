@@ -1,15 +1,15 @@
 import { getPostDetail, getTotalPost } from "@/api/post/post";
-import { useQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "@tanstack/react-query";
 
 export const useGetAllPostsQuery = () => {
-    return useQuery({
+    return useSuspenseQuery({
         queryKey: ["posts"],
         queryFn: getTotalPost,
     });
 };
 
 export const useGetPostQuery = (postId: number) => {
-    return useQuery({
+    return useSuspenseQuery({
         queryKey: ["post", postId],
         queryFn: () => {
             return getPostDetail(postId);

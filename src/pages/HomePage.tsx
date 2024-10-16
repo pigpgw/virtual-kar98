@@ -13,7 +13,7 @@ import { useGetAllPostsQuery } from "@/hooks/react-query/usePostQuery";
 const limit = MESSAGE.TABLE_PLAGE_LIMIT_NUMBER;
 
 const HomePage = () => {
-    const { data, isError, isLoading } = useGetAllPostsQuery();
+    const { data } = useGetAllPostsQuery();
     const { userId, resetUserId, resetUserName } = useUserStore();
     const { isOpen, openModal, closeModal } = useModal();
     const navigate = useNavigate();
@@ -38,9 +38,6 @@ const HomePage = () => {
     }));
     const numPages = Math.ceil(posts.length / limit);
     const currentPosts = posts.slice((page - 1) * limit, page * limit);
-
-    if (isLoading) return <div>로딩중입니다.</div>;
-    if (isError) return <div>게시판글 가져오기를 실패했습니다.</div>;
 
     return (
         <>

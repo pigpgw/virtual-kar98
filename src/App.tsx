@@ -5,7 +5,8 @@ import ComponentsPage from "./pages/ComponentsPage";
 import LoginPage from "./pages/LoginPage";
 import HomePage from "./pages/HomePage";
 import useUserStore from "./store/userStore/users";
-import { ReactNode } from "react";
+import { ReactNode, Suspense } from "react";
+import ErrorBoundary from "./components/common/Errorboundary";
 interface AuthWrapperProps {
     children: ReactNode;
 }
@@ -29,7 +30,11 @@ const App = () => {
                 path="/home"
                 element={
                     <AuthWrapper>
-                        <HomePage />
+                        <ErrorBoundary>
+                            <Suspense>
+                                <HomePage />
+                            </Suspense>
+                        </ErrorBoundary>
                     </AuthWrapper>
                 }
             />

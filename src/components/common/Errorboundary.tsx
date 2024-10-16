@@ -29,7 +29,12 @@ class ErrorBoundary extends Component<Props, State> {
             if (this.props.fallBack) {
                 return this.props.fallBack;
             }
-            return <>{this.state.error?.message}</>;
+            // return <>{this.state.error?.message}</>;
+            return (
+                <div className="w-screen h-screen flex items-center justify-center">
+                    <div>{this.state.error?.message}</div>
+                </div>
+            );
         }
 
         return this.props.children;
