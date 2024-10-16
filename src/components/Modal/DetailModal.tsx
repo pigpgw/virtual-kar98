@@ -1,10 +1,10 @@
-import React, { useEffect, useState, useRef } from "react";
-import { deletePostDetail } from "@/api/post/post";
-import { addComment } from "@/api/comment";
 import Text from "@/components/common/Text";
 import Input from "../common/Input";
 import Button from "../common/Button";
+import { useEffect, useState, useRef } from "react";
 import useUserStore from "@/store/userStore/users";
+import { deletePostDetail } from "@/api/post/post";
+import { addComment } from "@/api/comment";
 import { MESSAGE } from "@/constants/description";
 import { useGetPostQuery } from "@/hooks/react-query/usePostQuery";
 
@@ -30,7 +30,7 @@ const PostsDetail = ({ postId, onClose }: Props) => {
 
     const [writeComment, setWriteComment] = useState("");
     const commentsEndRef = useRef<HTMLDivElement>(null);
-    const [mine, setMine] = useState(false);
+    const [mine] = useState(false);
 
     const { username } = useUserStore();
 

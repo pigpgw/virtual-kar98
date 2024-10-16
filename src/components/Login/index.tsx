@@ -1,10 +1,10 @@
-import { useState } from "react";
 import Text from "@/components/common/Text";
 import Input from "../common/Input";
 import Button from "../common/Button";
+import { MESSAGE } from "@/constants/description";
+import { useState } from "react";
 import useUserStore from "@/store/userStore/users";
 import { useNavigate } from "react-router-dom";
-import { MESSAGE } from "@/constants/description";
 import { useUserSigninMutate } from "@/hooks/react-query/useUserSignin";
 
 interface LoginProps {
@@ -25,7 +25,7 @@ const Login = ({ onSignUpModal }: LoginProps) => {
         setPassword(e.target.value);
     };
 
-    const { mutate, isLoading, isError, isSuccess } = useUserSigninMutate();
+    const { mutate } = useUserSigninMutate();
 
     const handleLogin = () => {
         // 로그인 요청
@@ -80,8 +80,8 @@ const Login = ({ onSignUpModal }: LoginProps) => {
                 />
             </div>
             <div className="w-2/3 flex justify-between items-center mt-6">
-                <Button type="signin" onClick={handleLogin} disabled={isLoading}>
-                    {isLoading ? "Signing in..." : "Signin"}
+                <Button type="signin" onClick={handleLogin} disabled>
+                    Signin
                 </Button>
                 <Button type="signup" onClick={handleSignUp}>
                     Signup
