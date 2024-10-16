@@ -1,9 +1,7 @@
 import { https } from "@/functions/https";
 
 export const postSignIn = async (username: string, password: string) => {
-    console.log(username, password);
     const response = await https.get(`/users?username=${username}&password=${password}`);
-    console.log(response.data);
     return response.data;
 };
 

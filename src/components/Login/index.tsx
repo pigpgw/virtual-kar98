@@ -3,7 +3,7 @@ import Text from "@/components/common/Text";
 import Input from "../common/Input";
 import Button from "../common/Button";
 import useUserStore from "@/store/userStore/users";
-import { postSignIn } from "@/api/user";
+import { postSignIn } from "@/api/user/user";
 import { useNavigate } from "react-router-dom";
 import { MESSAGE } from "@/constants/description";
 
@@ -27,9 +27,7 @@ const Login = ({ onSignUpModal }: LoginProps) => {
 
     const handleLogin = async () => {
         try {
-            console.log("id", id, password);
             const response = await postSignIn(id, password);
-            console.log("id", id, password);
             if (response.length > 0) {
                 const userId = response[0].id;
                 const username = response[0].username;

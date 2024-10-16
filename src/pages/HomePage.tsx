@@ -7,7 +7,7 @@ import { useState } from "react";
 import useModal from "@/hooks/useModal";
 import useUserStore from "@/store/userStore/users";
 import { useNavigate } from "react-router-dom";
-import { postDeleteAccount } from "@/api/user";
+import { postDeleteAccount } from "@/api/user/user";
 import { useGetAllPostsQuery } from "@/hooks/react-query/usePostQuery";
 
 const limit = MESSAGE.TABLE_PLAGE_LIMIT_NUMBER;

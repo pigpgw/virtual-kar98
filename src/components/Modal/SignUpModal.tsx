@@ -4,7 +4,7 @@ import Button from "../common/Button";
 import { MESSAGE } from "@/constants/description";
 
 import { useState } from "react";
-import { postSignIn, postSignUp } from "@/api/user";
+import { postSignIn, postSignUp } from "@/api/user/user";
 
 interface Props {
     onCancle(): void;
