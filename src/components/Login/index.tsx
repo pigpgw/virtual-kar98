@@ -3,9 +3,9 @@ import Text from "@/components/common/Text";
 import Input from "../common/Input";
 import Button from "../common/Button";
 import useUserStore from "@/store/userStore/users";
-import { postSignIn } from "@/api/user/user";
 import { useNavigate } from "react-router-dom";
 import { MESSAGE } from "@/constants/description";
+import { useUserSigninMutate } from "@/hooks/react-query/useUserSignin";
 
 interface LoginProps {
     onSignUpModal(): void;
@@ -25,23 +25,32 @@ const Login = ({ onSignUpModal }: LoginProps) => {
         setPassword(e.target.value);
     };
 
-    const handleLogin = async () => {
-        try {
-            const response = await postSignIn(id, password);
-            if (response.length > 0) {
-                const userId = response[0].id;
-                const username = response[0].username;
-                setUserId(userId);
-                setUserName(username);
-                alert(MESSAGE.LOGIN_SUCCESS);
-                navigate("/home");
-            } else {
-                alert(MESSAGE.LOGIN_FAIL);
+    const { mutate, isLoading, isError, isSuccess } = useUserSigninMutate();
+
+    const handleLogin = () => {
+        // 로그인 요청
+        mutate(
+            { username: id, password },
+            {
+                onSuccess: (response) => {
+                    if (response.length > 0) {
+                        const userId = response[0].id;
+                        const username = response[0].username;
+                        setUserId(userId);
+                        setUserName(username);
+                        alert(MESSAGE.LOGIN_SUCCESS);
+                        navigate("/home");
+                    } else {
+                        alert(MESSAGE.LOGIN_FAIL);
+                    }
+                },
+                onError: () => {
+                    alert(MESSAGE.LOGIN_FAIL);
+                },
             }
-        } catch (e) {
-            alert(MESSAGE.LOGIN_FAIL);
-        }
+        );
     };
+
     const handleSignUp = () => {
         onSignUpModal();
     };
@@ -71,8 +80,8 @@ const Login = ({ onSignUpModal }: LoginProps) => {
                 />
             </div>
             <div className="w-2/3 flex justify-between items-center mt-6">
-                <Button type="signin" onClick={handleLogin}>
-                    Signin
+                <Button type="signin" onClick={handleLogin} disabled={isLoading}>
+                    {isLoading ? "Signing in..." : "Signin"}
                 </Button>
                 <Button type="signup" onClick={handleSignUp}>
                     Signup
